@@ -1,0 +1,332 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <title>我的桌面</title>
+
+    <!--<link href="css/H-ui.min.css" rel="stylesheet" />-->
+    <link href="/Content/css/bootstrap.css" rel="stylesheet" />
+    <link href="css/H-ui.admin.css" rel="stylesheet" />
+    <link href="skin/blue/skin.css" rel="stylesheet" id="skin" />
+    <link href="css/style.css" rel="stylesheet" />
+    <script src="/Scripts/jquery-1.10.2.js"></script>
+    <script src="/Scripts/jquery-1.10.2.min.js"></script>
+
+    <!--弹出层   提示 样式文件-->
+    <link href="/Content/hhlset/layer/skin/layer.css" rel="stylesheet" />
+    <link href="/Content/hhlset/toastr/toastr.css" rel="stylesheet" />
+    <link href="/Content/hhlset/toastr/toastr.min.css" rel="stylesheet" />
+
+    <!--弹出层   提示 js文件-->
+    <script src="/Content/hhlset/toastr/toastr.js"></script>
+    <script src="/Content/hhlset/layer/layer.js"></script>
+
+    <!--提示  扩展的js文件-->
+    <script src="/Scripts/hhl.js"></script>
+
+    <script type="text/javascript" src="http://tool.keleyi.com/ip/visitoriphost/"></script>
+
+
+    <script src="http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var goverment = ["重庆", "北京", "天津", "南京"];
+            //新浪记录
+            var fix = "省";
+            var provinces = remote_ip_info["province"];
+            for (var i = 0; i < goverment.length; i++) {
+                if (provinces == goverment[i]) {
+                    fix = "市"
+                }
+            }
+
+            var address = remote_ip_info["country"] + ' ' + remote_ip_info["province"] + fix + ' ' + remote_ip_info["city"] + "市";//中国,江苏省,南京市
+
+            $("#loginCity").text(address);
+
+            var date = new Date();
+
+            //登录信息 客户端信息
+            hhl.ajax("/WebService/BaseHandler.asmx/GetBaseInfo", {}, function (result) {
+
+                if (result.d.IsSuccess) {
+                    var Model = result.d.Data;
+                    $(".Ip").text(Model.InIp);
+                    $(".hostName").text(Model.hostName);
+                    $(".userName").text(Model.userName);
+                    $(".span_loginName").text("(" + Model.loginName + ")");
+                }
+            });
+
+            //判断时候(早 中 晚)
+            var hours = date.getHours();
+            var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();;
+            var welcome = ["早上好", "上午好", "中午好", "下午好", "傍晚好", "晚上好"];
+            var hour = [7, 11, 13, 18, 19, 24];
+            var wel = "";
+            for (var i = 0; i < welcome.length; i++) {
+
+                if (hours <= hour[i]) {
+                    wel = welcome[i];
+                    break;
+                }
+
+            }
+
+
+            //赋值  欢迎  域名
+            $(".span_welcome").text(wel + " 欢迎使用婚庆管理系统");
+            var url = window.location.href;
+            $("a[name='spanUrl']").text(url).attr("href", url);
+
+
+            //整点 半分钟 刷新一次
+            setInterval(function () {
+                if (minutes == 00) {
+                    for (var i = 0; i < welcome.length; i++) {
+                        if (hours <= hour[i]) {
+                            wel = welcome[i];
+                            break;
+                        }
+                    }
+                    $(".span_welcome").text(wel + " 欢迎使用婚庆管理系统");
+                }
+            }, 30000)
+
+            //登录日志
+            hhl.ajax("/WebService/EmployeeHandler.asmx/GetLastLoginTime", null, function (result) {
+                if (result.d.IsSuccess) {
+                    if (result.d.Value != null) {
+                        $(".span_lastTime").text(result.d.Value);
+                    } else {
+                        $(".span_lastTime").text("第一次登录");
+                    }
+                    $(".spanCount").text(result.d.Index);
+                }
+            });
+
+            //登录城市
+            setTimeout(function () {
+                var ip = $("#keleyivisitorip").text();
+
+                //登录信息 客户端信息
+                hhl.ajax("/WebService/BaseHandler.asmx/GetCity", '{"ip":"' + ip + '"}', function (result) {
+                    $(".spanCity").text("登陆城市:" + result.d);
+                });
+
+            }, 100)
+
+            //数据库备份
+            $("#btn_backUp").click(function () {
+                hhl.ajax("/WebService/BaseHandler.asmx/BackUpDataBase", null, function (result) {
+                    if (result.d.IsSuccess) {
+                        hhl.notify.success(result.d.Message, "提示");
+                    } else {
+                        hhl.notify.error(result.d.Message, "提示");
+                    }
+                });
+            });
+
+
+        });
+
+
+
+    </script>
+
+
+</head>
+<body style="border:none;">
+    <div class="panel" style="margin-left:20px;">
+        <!--<div class="panel-body">-->
+
+        <div class="setTop">
+            <div class="divImg pull-left">
+                <img src="/images/sun.png" class="imgSum" />
+            </div>
+            <div class="divWelcome">
+                <span class="span_welcome"></span>
+                <span class="span_loginName"></span>
+            </div>
+        </div>
+
+        <div class="setTop">
+            <div class="divImg pull-left">
+                <img src="/images/time.png" class="imgSum" />
+            </div>
+            <div class="divTime">
+                <span class="spanLast">你上次登录的时间:</span><span class="span_lastTime">2016-10-11 17:54:36</span><p />
+                <span style="margin-left:42px;">登录次数:</span><span class="spanCount"></span><p />
+                <span class="spanCity" style="margin-left:42px;"></span>
+            </div>
+
+            <table class="table setTop" style="width:40%;display:none;">
+                <tr>
+                    <td>内网Ip:</td>
+                    <td><span class="Ip">18</span></td>
+                    <td>外网IP:</td>
+                    <td><span></span></td>
+                </tr>
+                <tr>
+                    <td>本机名称:</td>
+                    <td><span class="hostName"></span></td>
+                    <td>系统登录:</td>
+                    <td><span class="userName"></span></td>
+                </tr>
+            </table>
+            <div class="form-group">
+                <button type="button" id="btn_backUp" class="btn btn-primary">数据库备份</button>
+            </div>
+        </div>
+        <div class="panel-body">
+            <table class="table table-border table-bordered table-bg mt-20">
+                <thead>
+                    <tr>
+                        <th colspan="2" scope="col">服务器信息</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th width="200">服务器计算机名</th>
+                        <td><span class="hostName"></span></td>
+                    </tr>
+                    <tr>
+                        <td>登录城市</td>
+                        <td><span id="loginCity"></span></td>
+                    </tr>
+                    <tr>
+                        <td>客户端IP地址</td>
+                        <td><span id="keleyivisitorip"></span></td>
+                    </tr>
+                    <tr>
+                        <td>服务器域名</td>
+                        <td><a name="spanUrl"></a></td>
+                    </tr>
+                    <tr>
+                        <td>服务器端口 </td>
+                        <td>80</td>
+                    </tr>
+                    <tr>
+                        <td>服务器IIS版本 </td>
+                        <td>Microsoft-IIS/6.0</td>
+                    </tr>
+                    <tr>
+                        <td>本文件所在文件夹 </td>
+                        <td>D:\WebSite\HanXiPuTai.com\XinYiCMS.Web\</td>
+                    </tr>
+                    <tr>
+                        <td>服务器操作系统 </td>
+                        <td>Microsoft Windows NT 5.2.3790 Service Pack 2</td>
+                    </tr>
+                    <tr>
+                        <td>系统所在文件夹 </td>
+                        <td>C:\WINDOWS\system32</td>
+                    </tr>
+                    <tr>
+                        <td>服务器脚本超时时间 </td>
+                        <td>30000秒</td>
+                    </tr>
+                    <tr>
+                        <td>服务器的语言种类 </td>
+                        <td>Chinese (People's Republic of China)</td>
+                    </tr>
+                    <tr>
+                        <td>.NET Framework 版本 </td>
+                        <td>2.050727.3655</td>
+                    </tr>
+                    <tr>
+                        <td>服务器当前时间 </td>
+                        <td>2014-6-14 12:06:23</td>
+                    </tr>
+                    <tr>
+                        <td>服务器IE版本 </td>
+                        <td>6.0000</td>
+                    </tr>
+                    <tr>
+                        <td>服务器上次启动到现在已运行 </td>
+                        <td>7210分钟</td>
+                    </tr>
+                    <tr>
+                        <td>逻辑驱动器 </td>
+                        <td>C:\D:\</td>
+                    </tr>
+                    <tr>
+                        <td>CPU 总数 </td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td>CPU 类型 </td>
+                        <td>x86 Family 6 Model 42 Stepping 1, GenuineIntel</td>
+                    </tr>
+                    <tr>
+                        <td>虚拟内存 </td>
+                        <td>52480M</td>
+                    </tr>
+                    <tr>
+                        <td>当前程序占用内存 </td>
+                        <td>3.29M</td>
+                    </tr>
+                    <tr>
+                        <td>Asp.net所占内存 </td>
+                        <td>51.46M</td>
+                    </tr>
+                    <tr>
+                        <td>当前Session数量 </td>
+                        <td>8</td>
+                    </tr>
+                    <tr>
+                        <td>当前SessionID </td>
+                        <td>gznhpwmp34004345jz2q3l45</td>
+                    </tr>
+                    <tr>
+                        <td>当前系统用户名 </td>
+                        <td><span class="userName"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--</div>-->
+    </div>
+</body>
+</html>
+<style type="text/css">
+    .setTop {
+        margin-top: 25px;
+        font-size: 13px;
+    }
+
+    .divImg {
+        float: left;
+        margin-right: 10px;
+    }
+
+    .divWelcome {
+        font-weight: bolder;
+        font-size: 12px;
+        width: 400px;
+    }
+
+    .span_welcome {
+        line-height: 32px;
+        height: 32px;
+    }
+
+    .span_userName {
+        font-weight: normal;
+        font-size: 13px;
+    }
+
+    .spanLast {
+        line-height: 32px;
+        height: 32px;
+    }
+
+    table tr td {
+        line-height: 30px;
+        height: 30px;
+    }
+</style>

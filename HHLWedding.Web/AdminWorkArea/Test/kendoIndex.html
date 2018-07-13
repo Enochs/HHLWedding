@@ -1,0 +1,298 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+
+    <script src="/Scripts/kendoCommon.js"></script>
+    <!-- #include file="Header.html" -->
+    <script type="text/javascript">
+        //title 提示
+        $(function () { $("[data-toggle='tooltip']").tooltip(); });
+    </script>
+</head>
+<body>
+    <div class="panel">
+        <div class="panel-body" ng-app="MyApp" ng-controller="MyCtrl" id="MyApp">
+            <div class="widget-box">
+                <div class="widget-header">
+                    <h4 class="h-title pull-left"><i class="icon-reorder"></i><b>客户列表</b></h4>
+                    <div class="box pull-right">
+                        <div class="div_angle">
+                            <span class="span-angel">
+                                <i id="icon_angle" class="icon-angle icon-angle-up"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-content bg-white">
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="txtName" name="txtName" ng-model="condition.name" placeholder="请输入新人姓名" />
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="txtPhone" name="txtPhone" ng-model="condition.phone" placeholder="请输入联系电话" />
+                        </div>
+                        <div class="form-group">
+                            <a class="btn btn-info" title="搜索" data-toggle="tooltip" ng-click="PageList()"><i class="icon-search"></i>&nbsp; 搜索</a>
+                            <a class="btn btn-info" title="刷新" data-toggle="tooltip" ng-click="PageList()"> <i class="icon-refresh"></i>&nbsp; 刷新</a>
+                            <a class="btn btn-success" title="添加客户" data-toggle="tooltip" href="FL_CustomerCreate.aspx?type=add"><i class="icon-plus"></i>&nbsp; 添加客户</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget-box">
+                <!-- 表格Begin-->
+                <!--<div kendo-grid="HHL_Grid" options="HHL_GridOptions"></div>-->
+                <!-- 表格End-->
+
+                <div kendo-grid="HHL_Grid" options="HHL_GridOptions">
+                    <div k-detail-template>
+                        <div kendo-tab-strip>
+                            <ul>
+                                <li class="k-state-active"><span class="k-loading k-compete"></span><span class="k-link">渠道信息</span></li>
+                            </ul>
+                            <div kendo-grid options="GetSaleSource(dataItem)"></div>
+                        </div>
+                    </div>
+
+                    <!--可查看 详细-->
+                    <!--<div kendo-grid="EPCReceivedGrid" options="EPCReceivedGridOptions">
+                        <div k-detail-template>      详情
+                            <div kendo-tab-strip>
+                                <ul>
+                                    <li class="k-state-active"><span class="k-loading k-compete"></span><span class="k-link">收款明细</span></li>
+                                    <li><span class="k-loading k-compete"></span><span class="k-link">添加应收款</span></li>
+                                </ul>
+                                <div kendo-grid options="GetShouKuanDetail(dataItem)"></div>
+                                <div kendo-grid options="GetYinShouOther(dataItem)"></div>
+                            </div>
+                        </div>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+
+    var app = angular.module('MyApp', ['ui.bootstrap', 'kendo.directives', 'angular-loading-bar']);
+    app.controller('MyCtrl', ['$scope', '$http', function ($scope, $http) {
+
+
+        $scope.pageIndex = 1;
+        $scope.pageSize = 3;
+
+        $scope.condition = { name: "", phone: "" };
+        //数据源
+        $scope.GridDataSource = function () {
+            return {
+                pageSize: 2,
+                page: 1,
+                serverPaging: true,
+                serverSorting: true,
+                serverFiltering: true,
+                serverGroupable: false,
+                sort: { field: "ContactPhone", dir: "desc" },
+                transport: {
+                    read: function (options) {
+                        $http.post('/WebService/Flow/CustomerHandler.asmx/GetAllCustomer', $.extend({}, options.data, $scope.condition),
+                        {
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                            transformRequest: function (data) {
+                                //处理请求Data,主要用于排序
+
+                                return $.param(requestDir(data));
+                            }
+                        }).then(function (response) {
+                            var dt = response.data;
+                            dt.data = JSON.parse(dt.data);
+                            options.success(dt);
+                        }, function (error) {
+                            options.error(error.statusText);
+                        });
+                    },
+                },
+                schema: {
+                    type: "json",
+                    data: "data",
+                    total: "total",
+                    errors: "errors"
+                }
+            }
+        }
+
+        //设置表头&&数据源
+        $scope.GridOptions = function () {
+
+            return {
+                dataSource: $scope.GridDataSource(),
+                columns: [
+                    {
+                        field: "", title: "序号", width: 60,
+                        attributes: { style: "text-align:center;" },
+                        template: "<span class='row-number'><span>",
+                    },
+                    { field: "CustomerName", title: "新人姓名", width: 150 },
+                    { field: "ContactPhone", title: "联系电话", width: 150 },
+                    { field: "PartyDate", title: "婚期", width: 120, template: "{{dataItem.PartyDate|date:'yyyy-MM-dd' }}" },
+                    { field: "Hotel", title: "酒店", width: 120, template: "{{dataItem.Hotel}}" },
+                    { field: "SaleTypeName", title: "渠道类型", width: 120 },
+                    { field: "SaleSourceName", title: "渠道名称", width: 200 },
+                    { field: "State", title: "进度状态", width: 200, template: "{{dataItem.StateName}}" }
+                ],
+                columnMenu: true,
+                pageable: {
+                    refresh: false,
+                    pageSizes: [10, 20, 40, 60, 80, 100],
+                    buttonCount: 10,
+                    numeric: true
+                },
+                sortable: true,
+                scrollable: true,
+                groupable: true,
+                selectable: false,
+                resizable: true,
+                dataBound: function () {
+                    //设置序号
+                    var rows = this.items();
+                    var page = this.pager.page() - 1;
+                    var pagesize = this.pager.pageSize();
+                    $(rows).each(function () {
+                        if (rows.length > 0) {
+                            var index = $(this).index();
+                            var XuHao = index + 1 + page * pagesize;
+                            var rowLabel = $(this).find(".row-number").html(XuHao);
+                        }
+                    });
+                },
+                // detailTemplate: kendo.template("asdasdasd")
+            }
+        }
+
+        //列表加载
+        $scope.HHL_GridOptions = $scope.GridOptions();
+
+        ///分页列表
+        $scope.PageList = function () {
+            //渲染数据源
+            $scope.HHL_Grid.setDataSource(new kendo.data.DataSource($scope.GridDataSource()));
+        };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        $scope.Tolist = [];
+        //二级列表
+        $scope.GetSaleSource = function (item) {
+            $scope.Tolist = [];
+            $scope.Tolist.push(item);
+            console.log($scope.Tolist);
+            return {
+                dataSource: $scope.Tolist,
+                columns: [
+                    { field: "SaleTypeName", title: "渠道类型", width: 120 },
+                    { field: "SaleSourceName", title: "渠道名称", width: 200 },
+                    {
+                        field: "State", title: "测试", width: 200,
+                        attributes: { styles: "text-align:center" },
+                        template: "<button type='button' class='btn-success'>测试通过</span>"
+                    },
+                ],
+                columnMenu: true,
+                sortable: true,
+                scrollable: true,
+                groupable: false,
+                selectable: false,
+                resizable: true,
+            }
+        }
+
+
+
+        $scope.changeHeight = function () {
+            var prrGrid = $("div[options='HHL_GridOptions']");
+            var dataArea = prrGrid.find(".k-grid-content");
+            var bottomArea = prrGrid.find(".k-grid-pager");
+            var sxHeight = window.innerHeight - prrGrid.offset().top - 20;
+            var diif = prrGrid.height() - sxHeight;
+            prrGrid.height(sxHeight);
+            dataArea.height(dataArea.height() - diif);
+        }
+
+    }]);
+
+    //加载改变列表高度
+    $(function () {
+        ChangeHeight("");
+
+        //收缩/展开
+        $(".widget-header .box").click(function () {
+            var icon = $(this).find("i");
+            var content = $(".widget-content");
+            if (icon.hasClass("icon-angle-up")) {
+                ChangeHeight("+");
+                icon.removeClass("icon-angle-up").addClass("icon-angle-down");
+                content.slideUp(200);
+
+            } else {
+                ChangeHeight("-");
+                icon.removeClass("icon-angle-down").addClass("icon-angle-up");
+                content.slideDown(200);
+
+            }
+
+        });
+    });
+
+
+    //页面高度改变
+    function ChangeHeight(fu) {
+        var prrGrid = $("div[options='HHL_GridOptions']");
+        var dataArea = prrGrid.find(".k-grid-content");
+        var bottomArea = prrGrid.find(".k-grid-pager");
+
+        var sxHeight = window.innerHeight - prrGrid.offset().top - 114;
+        if (fu == "+") {
+            sxHeight = window.innerHeight - prrGrid.offset().top + 17;
+        } else if (fu == "") {
+            sxHeight = window.innerHeight - prrGrid.offset().top - 48;
+        }
+        var diif = prrGrid.height() - sxHeight;
+        prrGrid.height(sxHeight);
+        dataArea.height(dataArea.height() - diif);
+    }
+
+    //处理data  用于排序
+    function requestDir(data) {
+        //处理请求Data,主要用于排序
+        if (data.sort) {
+            var rtStr = "";
+            for (var i = 0, len = data.sort.length; i < len; i++) {
+                var nowS = data.sort[i];
+                rtStr += nowS["field"] + "-" + nowS["dir"];
+            }
+            data.sort = rtStr;
+        }
+        return data;
+    }
+</script>

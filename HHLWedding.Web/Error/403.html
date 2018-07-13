@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="/Scripts/jquery.js"></script>
+    <script src="/Scripts/jquery.min.js"></script>
+    <style type="text/css">
+        .main {
+            text-align: center;
+            font-size: 14px;
+        }
+
+            .main a {
+                font-size: 13px;
+            }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            setInterval(function () {
+                var time = $(".spanNum").html();
+                if (time == 1) {
+                    //this.window.parent.location.href = "/AdminWorkArea/Login.aspx";
+                    window.location.reload();
+                }
+
+                $(".spanNum").text(time - 1);
+            }, 1000)
+        });
+    </script>
+</head>
+<body>
+    <div class="main">
+        <h2>服务器禁止访问</h2>
+
+
+        <span>该页面将在</span><span class="spanNum">5</span><span>秒内返回登录页面</span><p />
+        <!--<a onclick="javascript: window.location.reload();" href="#" target="_parent">立即返回</a>-->
+        <a onclick="javascript: history.go(-1);" href="#" target="_parent">立即返回</a>
+    </div>
+</body>
+</html>

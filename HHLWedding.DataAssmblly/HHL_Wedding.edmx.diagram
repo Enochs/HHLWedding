@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="38d7eeed243b4bc3aa4e64a00f1e69a6" Name="Diagram1" ZoomLevel="51">
+        <EntityTypeShape EntityType="HHL_WeddingModel.Sys_UserJurisdiction" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HHL_WeddingModel.Sys_Channel" Width="1.5" PointX="7.625" PointY="0.5" />
+        <EntityTypeShape EntityType="HHL_WeddingModel.Sys_Department" Width="1.5" PointX="0.75" PointY="6.625" />
+        <EntityTypeShape EntityType="HHL_WeddingModel.Sys_EmployeeJob" Width="1.5" PointX="0.75" PointY="10.375" />
+        <EntityTypeShape EntityType="HHL_WeddingModel.Sys_EmployeeType" Width="1.5" PointX="0.75" PointY="14.25" />
+        <EntityTypeShape EntityType="HHL_WeddingModel.Sys_Employee" Width="1.5" PointX="3" PointY="9.125" />
+        <AssociationConnector Association="HHL_WeddingModel.FK_Sys_Employee_Sys_Department" />
+        <AssociationConnector Association="HHL_WeddingModel.FK_Sys_Employee_Sys_EmployeeJob" />
+        <AssociationConnector Association="HHL_WeddingModel.FK_Sys_Employee_Sys_EmployeeType" />
+        <EntityTypeShape EntityType="HHL_WeddingModel.FD_HotelLabel" Width="1.5" PointX="2.875" PointY="0.625" />
+        <EntityTypeShape EntityType="HHL_WeddingModel.CommonImages" Width="1.5" PointX="5.125" PointY="0.625" />
+        <EntityTypeShape EntityType="HHL_WeddingModel.Sys_EmployeePower" Width="1.5" PointX="8.375" PointY="11.75" />
+        <EntityTypeShape EntityType="HHL_WeddingModel.MyMusic" Width="1.5" PointX="5.375" PointY="12.75" />
+        <EntityTypeShape EntityType="HHL_WeddingModel.sm_Message" Width="1.5" PointX="7.375" PointY="15.75" />
+        <EntityTypeShape EntityType="HHL_WeddingModel.sys_LoginLog" Width="1.5" PointX="5.375" PointY="8.75" />
+        <EntityTypeShape EntityType="HHL_WeddingModel.FL_Customer" Width="1.5" PointX="16.875" PointY="8.875" />
+        <EntityTypeShape EntityType="HHL_WeddingModel.FL_Invite" Width="1.5" PointX="10.375" PointY="0.75" />
+        <EntityTypeShape EntityType="HHL_WeddingModel.FD_SaleSource" Width="1.5" PointX="12.75" PointY="4.75" />
+        <EntityTypeShape EntityType="HHL_WeddingModel.FD_SaleType" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="HHL_WeddingModel.FL_InviteDetails" Width="1.5" PointX="8.375" PointY="4.75" />
+        <EntityTypeShape EntityType="HHL_WeddingModel.FD_Hotel" Width="1.5" PointX="10.375" PointY="14.75" />
+        <EntityTypeShape EntityType="HHL_WeddingModel.SS_Report" Width="1.5" PointX="12.375" PointY="14.75" />
+        <EntityTypeShape EntityType="HHL_WeddingModel.FL_Order" Width="1.5" PointX="10.375" PointY="10" />
+        <EntityTypeShape EntityType="HHL_WeddingModel.FL_OrderDetails" Width="1.5" PointX="12.625" PointY="10.375" />
+        <AssociationConnector Association="HHL_WeddingModel.FK_FL_OrderDetails_FL_Order" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,1186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HHL_WeddingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CommonImages">
+          <Key>
+            <PropertyRef Name="ImgId" />
+          </Key>
+          <Property Name="ImgId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ImgUrl" Type="varchar(max)" />
+          <Property Name="ImgName" Type="varchar" MaxLength="200" />
+          <Property Name="TypeId" Type="int" />
+          <Property Name="CommonId" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="State" Type="int" />
+        </EntityType>
+        <EntityType Name="FD_Hotel">
+          <Key>
+            <PropertyRef Name="HotelID" />
+          </Key>
+          <Property Name="HotelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HotelName" Type="varchar" MaxLength="50" />
+          <Property Name="HotelType" Type="int" />
+          <Property Name="HotelThemeImage" Type="varchar" MaxLength="3000" />
+          <Property Name="Area" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="500" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Start" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="End" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="DeskCount" Type="int" />
+          <Property Name="Description" Type="text" />
+          <Property Name="Sort" Type="int" />
+          <Property Name="Label" Type="varchar" MaxLength="100" />
+          <Property Name="LabelContent" Type="varchar" MaxLength="2000" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="Letter" Type="varchar" MaxLength="10" />
+          <Property Name="Status" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="FD_HotelLabel">
+          <Key>
+            <PropertyRef Name="LabelID" />
+          </Key>
+          <Property Name="LabelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LabelName" Type="varchar" MaxLength="50" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="CreateEmployee" Type="int" />
+          <Property Name="Status" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="FD_SaleSource">
+          <Key>
+            <PropertyRef Name="SourceId" />
+          </Key>
+          <Property Name="SourceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SourceName" Type="varchar" MaxLength="50" />
+          <Property Name="SaleTypeId" Type="int" />
+          <Property Name="IsRebate" Type="int" />
+          <Property Name="SourceAddress" Type="varchar" MaxLength="500" />
+          <Property Name="CommoandName" Type="varchar" MaxLength="50" />
+          <Property Name="CommondPhone" Type="varchar" MaxLength="20" />
+          <Property Name="CommondBankName" Type="varchar" MaxLength="20" />
+          <Property Name="CommondBankCard" Type="varchar" MaxLength="20" />
+          <Property Name="CreateEmployee" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="Description" Type="text" />
+          <Property Name="letter" Type="varchar" MaxLength="10" />
+          <Property Name="Status" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="FD_SaleType">
+          <Key>
+            <PropertyRef Name="SaleTypeID" />
+          </Key>
+          <Property Name="SaleTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SaleTypeName" Type="varchar" MaxLength="50" />
+          <Property Name="CreateEmployee" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="Status" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="FL_Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Bride" Type="varchar" MaxLength="50" />
+          <Property Name="BridePhone" Type="varchar" MaxLength="20" />
+          <Property Name="Groom" Type="varchar" MaxLength="50" />
+          <Property Name="GroomPhone" Type="varchar" MaxLength="20" />
+          <Property Name="Operator" Type="varchar" MaxLength="50" />
+          <Property Name="OperatorPhone" Type="varchar" MaxLength="20" />
+          <Property Name="ContactMan" Type="varchar" MaxLength="50" />
+          <Property Name="ContactPhone" Type="varchar" MaxLength="50" />
+          <Property Name="PartyDate" Type="datetime" />
+          <Property Name="Hotel" Type="varchar" MaxLength="100" />
+          <Property Name="BanqueType" Type="varchar" MaxLength="20" />
+          <Property Name="Type" Type="int" />
+          <Property Name="SaleType" Type="int" />
+          <Property Name="Channel" Type="int" />
+          <Property Name="DeskCount" Type="int" />
+          <Property Name="Budget" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ReCommand" Type="varchar" MaxLength="20" />
+          <Property Name="CreateEmployee" Type="int" />
+          <Property Name="IsVip" Type="int" />
+          <Property Name="State" Type="int" />
+          <Property Name="Status" Type="tinyint" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="IsFinish" Type="int" />
+          <Property Name="EvalState" Type="int" />
+          <Property Name="Description" Type="text" />
+        </EntityType>
+        <EntityType Name="FL_Invite">
+          <Key>
+            <PropertyRef Name="InviteId" />
+          </Key>
+          <Property Name="InviteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerID" Type="uniqueidentifier" />
+          <Property Name="EmployeeId" Type="int" />
+          <Property Name="ComeDate" Type="datetime" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="CreateEmployee" Type="int" />
+          <Property Name="NextFollowDate" Type="datetime" />
+          <Property Name="FollowCount" Type="int" />
+          <Property Name="LastFollowDate" Type="datetime" />
+          <Property Name="OrderEmployee" Type="int" />
+          <Property Name="IsLose" Type="bit" />
+          <Property Name="LoseDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FL_InviteDetails">
+          <Key>
+            <PropertyRef Name="DetailsId" />
+          </Key>
+          <Property Name="DetailsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InviteId" Type="int" />
+          <Property Name="CustomerId" Type="uniqueidentifier" />
+          <Property Name="EmployeeId" Type="int" />
+          <Property Name="InviteState" Type="int" />
+          <Property Name="StateName" Type="varchar" MaxLength="50" />
+          <Property Name="InviteContent" Type="varchar" MaxLength="500" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="NextFollowDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FL_Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrderCoder" Type="varchar" MaxLength="100" />
+          <Property Name="CustomerId" Type="uniqueidentifier" />
+          <Property Name="ComeDate" Type="datetime" />
+          <Property Name="EmployeeId" Type="int" />
+          <Property Name="OrderState" Type="int" />
+          <Property Name="FollowCount" Type="int" />
+          <Property Name="LastFollowDate" Type="datetime" />
+          <Property Name="NextFollowDate" Type="datetime" />
+          <Property Name="QuotedEmployee" Type="int" />
+          <Property Name="CreateEmployee" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FL_OrderDetails">
+          <Key>
+            <PropertyRef Name="OrderDetailsId" />
+          </Key>
+          <Property Name="OrderDetailsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderId" Type="uniqueidentifier" />
+          <Property Name="CustomerId" Type="uniqueidentifier" />
+          <Property Name="EmployeeId" Type="int" />
+          <Property Name="OrderState" Type="int" />
+          <Property Name="OrderContent" Type="varchar" MaxLength="500" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="NextFollowDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="MyMusic">
+          <Key>
+            <PropertyRef Name="MusicId" />
+          </Key>
+          <Property Name="MusicId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MusicName" Type="varchar" MaxLength="200" />
+          <Property Name="MusicOtherName" Type="varchar" MaxLength="200" />
+          <Property Name="MusicUrl" Type="varchar" MaxLength="5000" />
+          <Property Name="MusicAuthor" Type="varchar" MaxLength="50" />
+          <Property Name="MusicCreateDate" Type="datetime" />
+          <Property Name="MusicImageUrl" Type="varchar" MaxLength="5000" />
+          <Property Name="MusicDesciption" Type="text" />
+        </EntityType>
+        <EntityType Name="sm_Message">
+          <Key>
+            <PropertyRef Name="MessageId" />
+          </Key>
+          <Property Name="MessageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MessageTitle" Type="varchar" MaxLength="200" />
+          <Property Name="MessageContent" Type="text" />
+          <Property Name="FromEmployee" Type="int" />
+          <Property Name="ToEmployee" Type="varchar" MaxLength="500" />
+          <Property Name="SendDateTime" Type="datetime" />
+          <Property Name="SendType" Type="int" />
+          <Property Name="PreMsgId" Type="int" />
+          <Property Name="NextmsgId" Type="int" />
+          <Property Name="IsRead" Type="int" />
+          <Property Name="IsDraft" Type="int" />
+          <Property Name="IsGarbage" Type="int" />
+        </EntityType>
+        <EntityType Name="SS_Report">
+          <Key>
+            <PropertyRef Name="ReportId" />
+          </Key>
+          <Property Name="ReportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerId" Type="uniqueidentifier" />
+          <Property Name="OrderId" Type="uniqueidentifier" />
+          <Property Name="QuotedId" Type="uniqueidentifier" />
+          <Property Name="CreateEmployee" Type="int" />
+          <Property Name="InviteEmployee" Type="int" />
+          <Property Name="OrderEmployee" Type="int" />
+          <Property Name="QuotedEmployee" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ComeDate" Type="datetime" />
+          <Property Name="InviteLoseDate" Type="datetime" />
+          <Property Name="OrderLoseDate" Type="datetime" />
+          <Property Name="CustomerState" Type="int" />
+          <Property Name="OrderSuccessDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Sys_Channel">
+          <Key>
+            <PropertyRef Name="ChannelID" />
+          </Key>
+          <Property Name="ChannelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChannelName" Type="varchar" MaxLength="150" />
+          <Property Name="ChannelAddress" Type="varchar" MaxLength="150" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="Parent" Type="int" />
+          <Property Name="ChannelGetType" Type="varchar" MaxLength="50" />
+          <Property Name="StyleSheethem" Type="varchar" MaxLength="50" />
+          <Property Name="ItemLevel" Type="int" />
+          <Property Name="IndexCode" Type="varchar" MaxLength="250" />
+          <Property Name="SortInt" Type="int" />
+          <Property Name="Status" Type="tinyint" />
+          <Property Name="Remark" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Sys_Department">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartmentName" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Parent" Type="int" />
+          <Property Name="SortOrder" Type="varchar" MaxLength="80" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="EmployeeID" Type="int" />
+          <Property Name="Status" Type="tinyint" />
+          <Property Name="DepartmentManager" Type="int" />
+          <Property Name="ItemLevel" Type="int" />
+        </EntityType>
+        <EntityType Name="Sys_Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="JobID" Type="int" />
+          <Property Name="DepartmentID" Type="int" Nullable="false" />
+          <Property Name="EmployeeTypeID" Type="int" Nullable="false" />
+          <Property Name="EmployeeName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LoginName" Type="varchar" MaxLength="50" />
+          <Property Name="PassWord" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ComeInDate" Type="datetime" />
+          <Property Name="Sex" Type="bit" />
+          <Property Name="BornDate" Type="date" Nullable="false" />
+          <Property Name="TelPhone" Type="varchar" MaxLength="40" />
+          <Property Name="EmployeeKey" Type="int" />
+          <Property Name="ImageURL" Type="varchar" MaxLength="300" />
+          <Property Name="UploadImageName" Type="varchar" MaxLength="50" />
+          <Property Name="IdCard" Type="varchar" MaxLength="20" />
+          <Property Name="Status" Type="tinyint" />
+          <Property Name="LastLoginTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Sys_EmployeeJob">
+          <Key>
+            <PropertyRef Name="JobID" />
+          </Key>
+          <Property Name="JobID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Jobname" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="createTime" Type="datetime" />
+          <Property Name="Status" Type="tinyint" />
+          <Property Name="EmployeeId" Type="int" />
+        </EntityType>
+        <EntityType Name="Sys_EmployeePower">
+          <Key>
+            <PropertyRef Name="PowerID" />
+          </Key>
+          <Property Name="PowerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Powername" Type="varchar" MaxLength="50" />
+          <Property Name="EmployeeID" Type="int" />
+          <Property Name="DepartmentID" Type="int" />
+          <Property Name="ChannelID" Type="int" />
+          <Property Name="UrlAddress" Type="varchar" MaxLength="500" />
+          <Property Name="Parent" Type="int" />
+          <Property Name="ItemLevel" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="Status" Type="tinyint" />
+          <Property Name="Sort" Type="int" />
+        </EntityType>
+        <EntityType Name="Sys_EmployeeType">
+          <Key>
+            <PropertyRef Name="EmployeeTypeID" />
+          </Key>
+          <Property Name="EmployeeTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="Status" Type="tinyint" />
+          <Property Name="EmployeeId" Type="int" />
+        </EntityType>
+        <EntityType Name="sys_LoginLog">
+          <Key>
+            <PropertyRef Name="LoginId" />
+          </Key>
+          <Property Name="LoginId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LoginEmployee" Type="int" />
+          <Property Name="LoginDate" Type="datetime" />
+          <Property Name="LoginCity" Type="varchar" MaxLength="50" />
+          <Property Name="LoginIpAddress" Type="varchar" MaxLength="50" />
+          <Property Name="LoginInIp" Type="varchar" MaxLength="50" />
+          <Property Name="LoginEmployeeKey" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Sys_UserJurisdiction">
+          <Key>
+            <PropertyRef Name="JurisdictionID" />
+          </Key>
+          <Property Name="JurisdictionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" />
+          <Property Name="DepartmentID" Type="int" />
+          <Property Name="ChannelID" Type="int" />
+          <Property Name="ChecksEmployee" Type="int" />
+          <Property Name="Dispatching" Type="int" />
+          <Property Name="DataPower" Type="int" Nullable="false" />
+          <Property Name="DataPowerMd5Key" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="IsClose" Type="bit" />
+        </EntityType>
+        <Association Name="FK_FL_OrderDetails_FL_Order">
+          <End Role="FL_Order" Type="Self.FL_Order" Multiplicity="0..1" />
+          <End Role="FL_OrderDetails" Type="Self.FL_OrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FL_Order">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="FL_OrderDetails">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HHL_WeddingModelStoreContainer">
+          <EntitySet Name="CommonImages" EntityType="Self.CommonImages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FD_Hotel" EntityType="Self.FD_Hotel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FD_HotelLabel" EntityType="Self.FD_HotelLabel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FD_SaleSource" EntityType="Self.FD_SaleSource" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FD_SaleType" EntityType="Self.FD_SaleType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FL_Customer" EntityType="Self.FL_Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FL_Invite" EntityType="Self.FL_Invite" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FL_InviteDetails" EntityType="Self.FL_InviteDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FL_Order" EntityType="Self.FL_Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FL_OrderDetails" EntityType="Self.FL_OrderDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MyMusic" EntityType="Self.MyMusic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sm_Message" EntityType="Self.sm_Message" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SS_Report" EntityType="Self.SS_Report" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_Channel" EntityType="Self.Sys_Channel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_Department" EntityType="Self.Sys_Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_Employee" EntityType="Self.Sys_Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_EmployeeJob" EntityType="Self.Sys_EmployeeJob" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_EmployeePower" EntityType="Self.Sys_EmployeePower" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_EmployeeType" EntityType="Self.Sys_EmployeeType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sys_LoginLog" EntityType="Self.sys_LoginLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_UserJurisdiction" EntityType="Self.Sys_UserJurisdiction" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_FL_OrderDetails_FL_Order" Association="Self.FK_FL_OrderDetails_FL_Order">
+            <End Role="FL_Order" EntitySet="FL_Order" />
+            <End Role="FL_OrderDetails" EntitySet="FL_OrderDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HHL_WeddingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Sys_UserJurisdiction">
+          <Key>
+            <PropertyRef Name="JurisdictionID" />
+          </Key>
+          <Property Name="JurisdictionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="Int32" />
+          <Property Name="DepartmentID" Type="Int32" />
+          <Property Name="ChannelID" Type="Int32" />
+          <Property Name="ChecksEmployee" Type="Int32" />
+          <Property Name="Dispatching" Type="Int32" />
+          <Property Name="DataPower" Type="Int32" Nullable="false" />
+          <Property Name="DataPowerMd5Key" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsClose" Type="Boolean" />
+        </EntityType>
+        <EntityContainer Name="HHL_WeddingEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Sys_UserJurisdiction" EntityType="Self.Sys_UserJurisdiction" />
+          <EntitySet Name="Sys_Channel" EntityType="HHL_WeddingModel.Sys_Channel" />
+          <EntitySet Name="Sys_Department" EntityType="HHL_WeddingModel.Sys_Department" />
+          <EntitySet Name="Sys_EmployeeJob" EntityType="HHL_WeddingModel.Sys_EmployeeJob" />
+          <EntitySet Name="Sys_EmployeeType" EntityType="HHL_WeddingModel.Sys_EmployeeType" />
+          <EntitySet Name="Sys_Employee" EntityType="HHL_WeddingModel.Sys_Employee" />
+          <AssociationSet Name="FK_Sys_Employee_Sys_Department" Association="HHL_WeddingModel.FK_Sys_Employee_Sys_Department">
+            <End Role="Sys_Department" EntitySet="Sys_Department" />
+            <End Role="Sys_Employee" EntitySet="Sys_Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sys_Employee_Sys_EmployeeJob" Association="HHL_WeddingModel.FK_Sys_Employee_Sys_EmployeeJob">
+            <End Role="Sys_EmployeeJob" EntitySet="Sys_EmployeeJob" />
+            <End Role="Sys_Employee" EntitySet="Sys_Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sys_Employee_Sys_EmployeeType" Association="HHL_WeddingModel.FK_Sys_Employee_Sys_EmployeeType">
+            <End Role="Sys_EmployeeType" EntitySet="Sys_EmployeeType" />
+            <End Role="Sys_Employee" EntitySet="Sys_Employee" />
+          </AssociationSet>
+          <EntitySet Name="FD_HotelLabel" EntityType="HHL_WeddingModel.FD_HotelLabel" />
+          <EntitySet Name="CommonImages" EntityType="HHL_WeddingModel.CommonImages" />
+          <EntitySet Name="Sys_EmployeePower" EntityType="HHL_WeddingModel.Sys_EmployeePower" />
+          <EntitySet Name="MyMusic" EntityType="HHL_WeddingModel.MyMusic" />
+          <EntitySet Name="sm_Message" EntityType="HHL_WeddingModel.sm_Message" />
+          <EntitySet Name="sys_LoginLog" EntityType="HHL_WeddingModel.sys_LoginLog" />
+          <EntitySet Name="FL_Customer" EntityType="HHL_WeddingModel.FL_Customer" />
+          <EntitySet Name="FL_Invite" EntityType="HHL_WeddingModel.FL_Invite" />
+          <EntitySet Name="FD_SaleSource" EntityType="HHL_WeddingModel.FD_SaleSource" />
+          <EntitySet Name="FD_SaleType" EntityType="HHL_WeddingModel.FD_SaleType" />
+          <EntitySet Name="FL_InviteDetails" EntityType="HHL_WeddingModel.FL_InviteDetails" />
+          <EntitySet Name="FD_Hotel" EntityType="HHL_WeddingModel.FD_Hotel" />
+          <EntitySet Name="SS_Report" EntityType="HHL_WeddingModel.SS_Report" />
+          <EntitySet Name="FL_Order" EntityType="HHL_WeddingModel.FL_Order" />
+          <EntitySet Name="FL_OrderDetails" EntityType="HHL_WeddingModel.FL_OrderDetails" />
+          <AssociationSet Name="FK_FL_OrderDetails_FL_Order" Association="HHL_WeddingModel.FK_FL_OrderDetails_FL_Order">
+            <End Role="FL_Order" EntitySet="FL_Order" />
+            <End Role="FL_OrderDetails" EntitySet="FL_OrderDetails" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Sys_Channel">
+          <Key>
+            <PropertyRef Name="ChannelID" />
+          </Key>
+          <Property Name="ChannelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChannelName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ChannelAddress" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="Parent" Type="Int32" />
+          <Property Name="ChannelGetType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StyleSheethem" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ItemLevel" Type="Int32" />
+          <Property Name="IndexCode" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="SortInt" Type="Int32" />
+          <Property Name="Status" Type="Byte" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Sys_Department">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentName" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Parent" Type="Int32" />
+          <Property Name="SortOrder" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="EmployeeID" Type="Int32" />
+          <Property Name="Status" Type="Byte" />
+          <Property Name="DepartmentManager" Type="Int32" />
+          <Property Name="ItemLevel" Type="Int32" />
+          <NavigationProperty Name="Sys_Employee" Relationship="HHL_WeddingModel.FK_Sys_Employee_Sys_Department" FromRole="Sys_Department" ToRole="Sys_Employee" />
+        </EntityType>
+        <EntityType Name="Sys_EmployeeJob">
+          <Key>
+            <PropertyRef Name="JobID" />
+          </Key>
+          <Property Name="JobID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Jobname" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="createTime" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Byte" />
+          <Property Name="EmployeeId" Type="Int32" />
+          <NavigationProperty Name="Sys_Employee" Relationship="HHL_WeddingModel.FK_Sys_Employee_Sys_EmployeeJob" FromRole="Sys_EmployeeJob" ToRole="Sys_Employee" />
+        </EntityType>
+        <EntityType Name="Sys_EmployeeType">
+          <Key>
+            <PropertyRef Name="EmployeeTypeID" />
+          </Key>
+          <Property Name="EmployeeTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Byte" />
+          <Property Name="EmployeeId" Type="Int32" />
+          <NavigationProperty Name="Sys_Employee" Relationship="HHL_WeddingModel.FK_Sys_Employee_Sys_EmployeeType" FromRole="Sys_EmployeeType" ToRole="Sys_Employee" />
+        </EntityType>
+        <EntityType Name="Sys_Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JobID" Type="Int32" />
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeTypeID" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LoginName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PassWord" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ComeInDate" Type="DateTime" Precision="3" />
+          <Property Name="Sex" Type="Boolean" />
+          <Property Name="BornDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TelPhone" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeKey" Type="Int32" />
+          <Property Name="ImageURL" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="UploadImageName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdCard" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Byte" />
+          <NavigationProperty Name="Sys_Department" Relationship="HHL_WeddingModel.FK_Sys_Employee_Sys_Department" FromRole="Sys_Employee" ToRole="Sys_Department" />
+          <NavigationProperty Name="Sys_EmployeeJob" Relationship="HHL_WeddingModel.FK_Sys_Employee_Sys_EmployeeJob" FromRole="Sys_Employee" ToRole="Sys_EmployeeJob" />
+          <NavigationProperty Name="Sys_EmployeeType" Relationship="HHL_WeddingModel.FK_Sys_Employee_Sys_EmployeeType" FromRole="Sys_Employee" ToRole="Sys_EmployeeType" />
+          <Property Name="LastLoginTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK_Sys_Employee_Sys_Department">
+          <End Type="HHL_WeddingModel.Sys_Department" Role="Sys_Department" Multiplicity="1" />
+          <End Type="HHL_WeddingModel.Sys_Employee" Role="Sys_Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sys_Department">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="Sys_Employee">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sys_Employee_Sys_EmployeeJob">
+          <End Type="HHL_WeddingModel.Sys_EmployeeJob" Role="Sys_EmployeeJob" Multiplicity="0..1" />
+          <End Type="HHL_WeddingModel.Sys_Employee" Role="Sys_Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sys_EmployeeJob">
+              <PropertyRef Name="JobID" />
+            </Principal>
+            <Dependent Role="Sys_Employee">
+              <PropertyRef Name="JobID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sys_Employee_Sys_EmployeeType">
+          <End Type="HHL_WeddingModel.Sys_EmployeeType" Role="Sys_EmployeeType" Multiplicity="1" />
+          <End Type="HHL_WeddingModel.Sys_Employee" Role="Sys_Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sys_EmployeeType">
+              <PropertyRef Name="EmployeeTypeID" />
+            </Principal>
+            <Dependent Role="Sys_Employee">
+              <PropertyRef Name="EmployeeTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="FD_HotelLabel">
+          <Key>
+            <PropertyRef Name="LabelID" />
+          </Key>
+          <Property Name="LabelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LabelName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateEmployee" Type="Int32" />
+          <Property Name="Status" Type="Byte" />
+        </EntityType>
+        <EntityType Name="CommonImages">
+          <Key>
+            <PropertyRef Name="ImgId" />
+          </Key>
+          <Property Name="ImgId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImgUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ImgName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="TypeId" Type="Int32" />
+          <Property Name="CommonId" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="State" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Sys_EmployeePower">
+          <Key>
+            <PropertyRef Name="PowerID" />
+          </Key>
+          <Property Name="PowerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Powername" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeID" Type="Int32" />
+          <Property Name="DepartmentID" Type="Int32" />
+          <Property Name="ChannelID" Type="Int32" />
+          <Property Name="UrlAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Parent" Type="Int32" />
+          <Property Name="ItemLevel" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Byte" />
+          <Property Name="Sort" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MyMusic">
+          <Key>
+            <PropertyRef Name="MusicId" />
+          </Key>
+          <Property Name="MusicId" Type="Guid" Nullable="false" />
+          <Property Name="MusicName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="MusicOtherName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="MusicUrl" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Name="MusicAuthor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MusicCreateDate" Type="DateTime" Precision="3" />
+          <Property Name="MusicImageUrl" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Name="MusicDesciption" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="sm_Message">
+          <Key>
+            <PropertyRef Name="MessageId" />
+          </Key>
+          <Property Name="MessageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MessageTitle" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="MessageContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FromEmployee" Type="Int32" />
+          <Property Name="ToEmployee" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="SendDateTime" Type="DateTime" Precision="3" />
+          <Property Name="SendType" Type="Int32" />
+          <Property Name="PreMsgId" Type="Int32" />
+          <Property Name="NextmsgId" Type="Int32" />
+          <Property Name="IsRead" Type="Int32" />
+          <Property Name="IsDraft" Type="Int32" />
+          <Property Name="IsGarbage" Type="Int32" />
+        </EntityType>
+        <EntityType Name="sys_LoginLog">
+          <Key>
+            <PropertyRef Name="LoginId" />
+          </Key>
+          <Property Name="LoginId" Type="Guid" Nullable="false" />
+          <Property Name="LoginEmployee" Type="Int32" />
+          <Property Name="LoginDate" Type="DateTime" Precision="3" />
+          <Property Name="LoginCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LoginIpAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LoginInIp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LoginEmployeeKey" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="FL_Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="Guid" Nullable="false" />
+          <Property Name="Bride" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BridePhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Groom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GroomPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Operator" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OperatorPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ContactMan" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContactPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PartyDate" Type="DateTime" Precision="3" />
+          <Property Name="Hotel" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="BanqueType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="SaleType" Type="Int32" />
+          <Property Name="Channel" Type="Int32" />
+          <Property Name="DeskCount" Type="Int32" />
+          <Property Name="Budget" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ReCommand" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CreateEmployee" Type="Int32" />
+          <Property Name="IsVip" Type="Int32" />
+          <Property Name="State" Type="Int32" />
+          <Property Name="Status" Type="Byte" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="IsFinish" Type="Int32" />
+          <Property Name="EvalState" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="FL_Invite">
+          <Key>
+            <PropertyRef Name="InviteId" />
+          </Key>
+          <Property Name="InviteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="Guid" />
+          <Property Name="EmployeeId" Type="Int32" />
+          <Property Name="ComeDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateEmployee" Type="Int32" />
+          <Property Name="NextFollowDate" Type="DateTime" Precision="3" />
+          <Property Name="FollowCount" Type="Int32" />
+          <Property Name="LastFollowDate" Type="DateTime" Precision="3" />
+          <Property Name="OrderEmployee" Type="Int32" />
+          <Property Name="IsLose" Type="Boolean" />
+          <Property Name="LoseDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="FD_SaleSource">
+          <Key>
+            <PropertyRef Name="SourceId" />
+          </Key>
+          <Property Name="SourceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SourceName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SaleTypeId" Type="Int32" />
+          <Property Name="IsRebate" Type="Int32" />
+          <Property Name="SourceAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CommoandName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CommondPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CommondBankName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CommondBankCard" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CreateEmployee" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="letter" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Byte" />
+        </EntityType>
+        <EntityType Name="FD_SaleType">
+          <Key>
+            <PropertyRef Name="SaleTypeID" />
+          </Key>
+          <Property Name="SaleTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SaleTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateEmployee" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Byte" />
+        </EntityType>
+        <EntityType Name="FL_InviteDetails">
+          <Key>
+            <PropertyRef Name="DetailsId" />
+          </Key>
+          <Property Name="DetailsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InviteId" Type="Int32" />
+          <Property Name="CustomerId" Type="Guid" />
+          <Property Name="EmployeeId" Type="Int32" />
+          <Property Name="InviteState" Type="Int32" />
+          <Property Name="StateName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="InviteContent" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="NextFollowDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="FD_Hotel">
+          <Key>
+            <PropertyRef Name="HotelID" />
+          </Key>
+          <Property Name="HotelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HotelName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HotelType" Type="Int32" />
+          <Property Name="HotelThemeImage" Type="String" MaxLength="3000" FixedLength="false" Unicode="false" />
+          <Property Name="Area" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Start" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="End" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="DeskCount" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Sort" Type="Int32" />
+          <Property Name="Label" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LabelContent" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="Letter" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Byte" />
+        </EntityType>
+        <EntityType Name="SS_Report">
+          <Key>
+            <PropertyRef Name="ReportId" />
+          </Key>
+          <Property Name="ReportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="Guid" />
+          <Property Name="OrderId" Type="Guid" />
+          <Property Name="QuotedId" Type="Guid" />
+          <Property Name="CreateEmployee" Type="Int32" />
+          <Property Name="InviteEmployee" Type="Int32" />
+          <Property Name="OrderEmployee" Type="Int32" />
+          <Property Name="QuotedEmployee" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="ComeDate" Type="DateTime" Precision="3" />
+          <Property Name="InviteLoseDate" Type="DateTime" Precision="3" />
+          <Property Name="OrderLoseDate" Type="DateTime" Precision="3" />
+          <Property Name="CustomerState" Type="Int32" />
+          <Property Name="OrderSuccessDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="FL_Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Guid" Nullable="false" />
+          <Property Name="OrderCoder" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerId" Type="Guid" />
+          <Property Name="ComeDate" Type="DateTime" Precision="3" />
+          <Property Name="EmployeeId" Type="Int32" />
+          <Property Name="OrderState" Type="Int32" />
+          <Property Name="FollowCount" Type="Int32" />
+          <Property Name="LastFollowDate" Type="DateTime" Precision="3" />
+          <Property Name="NextFollowDate" Type="DateTime" Precision="3" />
+          <Property Name="QuotedEmployee" Type="Int32" />
+          <Property Name="CreateEmployee" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="FL_OrderDetails" Relationship="HHL_WeddingModel.FK_FL_OrderDetails_FL_Order" FromRole="FL_Order" ToRole="FL_OrderDetails" />
+        </EntityType>
+        <EntityType Name="FL_OrderDetails">
+          <Key>
+            <PropertyRef Name="OrderDetailsId" />
+          </Key>
+          <Property Name="OrderDetailsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderId" Type="Guid" />
+          <Property Name="CustomerId" Type="Guid" />
+          <Property Name="EmployeeId" Type="Int32" />
+          <Property Name="OrderState" Type="Int32" />
+          <Property Name="OrderContent" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="NextFollowDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="FL_Order" Relationship="HHL_WeddingModel.FK_FL_OrderDetails_FL_Order" FromRole="FL_OrderDetails" ToRole="FL_Order" />
+        </EntityType>
+        <Association Name="FK_FL_OrderDetails_FL_Order">
+          <End Type="HHL_WeddingModel.FL_Order" Role="FL_Order" Multiplicity="0..1" />
+          <End Type="HHL_WeddingModel.FL_OrderDetails" Role="FL_OrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FL_Order">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="FL_OrderDetails">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HHL_WeddingModelStoreContainer" CdmEntityContainer="HHL_WeddingEntities">
+          <EntitySetMapping Name="Sys_UserJurisdiction">
+            <EntityTypeMapping TypeName="HHL_WeddingModel.Sys_UserJurisdiction">
+              <MappingFragment StoreEntitySet="Sys_UserJurisdiction">
+                <ScalarProperty Name="JurisdictionID" ColumnName="JurisdictionID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="ChannelID" ColumnName="ChannelID" />
+                <ScalarProperty Name="ChecksEmployee" ColumnName="ChecksEmployee" />
+                <ScalarProperty Name="Dispatching" ColumnName="Dispatching" />
+                <ScalarProperty Name="DataPower" ColumnName="DataPower" />
+                <ScalarProperty Name="DataPowerMd5Key" ColumnName="DataPowerMd5Key" />
+                <ScalarProperty Name="IsClose" ColumnName="IsClose" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_Channel">
+            <EntityTypeMapping TypeName="HHL_WeddingModel.Sys_Channel">
+              <MappingFragment StoreEntitySet="Sys_Channel">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="SortInt" ColumnName="SortInt" />
+                <ScalarProperty Name="IndexCode" ColumnName="IndexCode" />
+                <ScalarProperty Name="ItemLevel" ColumnName="ItemLevel" />
+                <ScalarProperty Name="StyleSheethem" ColumnName="StyleSheethem" />
+                <ScalarProperty Name="ChannelGetType" ColumnName="ChannelGetType" />
+                <ScalarProperty Name="Parent" ColumnName="Parent" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ChannelAddress" ColumnName="ChannelAddress" />
+                <ScalarProperty Name="ChannelName" ColumnName="ChannelName" />
+                <ScalarProperty Name="ChannelID" ColumnName="ChannelID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_Department">
+            <EntityTypeMapping TypeName="HHL_WeddingModel.Sys_Department">
+              <MappingFragment StoreEntitySet="Sys_Department">
+                <ScalarProperty Name="ItemLevel" ColumnName="ItemLevel" />
+                <ScalarProperty Name="DepartmentManager" ColumnName="DepartmentManager" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="Parent" ColumnName="Parent" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_EmployeeJob">
+            <EntityTypeMapping TypeName="HHL_WeddingModel.Sys_EmployeeJob">
+              <MappingFragment StoreEntitySet="Sys_EmployeeJob">
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="createTime" ColumnName="createTime" />
+                <ScalarProperty Name="Jobname" ColumnName="Jobname" />
+                <ScalarProperty Name="JobID" ColumnName="JobID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_EmployeeType">
+            <EntityTypeMapping TypeName="HHL_WeddingModel.Sys_EmployeeType">
+              <MappingFragment StoreEntitySet="Sys_EmployeeType">
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="EmployeeTypeID" ColumnName="EmployeeTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_Employee">
+            <EntityTypeMapping TypeName="HHL_WeddingModel.Sys_Employee">
+              <MappingFragment StoreEntitySet="Sys_Employee">
+                <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IdCard" ColumnName="IdCard" />
+                <ScalarProperty Name="UploadImageName" ColumnName="UploadImageName" />
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+                <ScalarProperty Name="EmployeeKey" ColumnName="EmployeeKey" />
+                <ScalarProperty Name="TelPhone" ColumnName="TelPhone" />
+                <ScalarProperty Name="BornDate" ColumnName="BornDate" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="ComeInDate" ColumnName="ComeInDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="EmployeeTypeID" ColumnName="EmployeeTypeID" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="JobID" ColumnName="JobID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FD_HotelLabel">
+            <EntityTypeMapping TypeName="HHL_WeddingModel.FD_HotelLabel">
+              <MappingFragment StoreEntitySet="FD_HotelLabel">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreateEmployee" ColumnName="CreateEmployee" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="LabelName" ColumnName="LabelName" />
+                <ScalarProperty Name="LabelID" ColumnName="LabelID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CommonImages">
+            <EntityTypeMapping TypeName="HHL_WeddingModel.CommonImages">
+              <MappingFragment StoreEntitySet="CommonImages">
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CommonId" ColumnName="CommonId" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="ImgName" ColumnName="ImgName" />
+                <ScalarProperty Name="ImgUrl" ColumnName="ImgUrl" />
+                <ScalarProperty Name="ImgId" ColumnName="ImgId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_EmployeePower">
+            <EntityTypeMapping TypeName="HHL_WeddingModel.Sys_EmployeePower">
+              <MappingFragment StoreEntitySet="Sys_EmployeePower">
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ItemLevel" ColumnName="ItemLevel" />
+                <ScalarProperty Name="Parent" ColumnName="Parent" />
+                <ScalarProperty Name="UrlAddress" ColumnName="UrlAddress" />
+                <ScalarProperty Name="ChannelID" ColumnName="ChannelID" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Powername" ColumnName="Powername" />
+                <ScalarProperty Name="PowerID" ColumnName="PowerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MyMusic">
+            <EntityTypeMapping TypeName="HHL_WeddingModel.MyMusic">
+              <MappingFragment StoreEntitySet="MyMusic">
+                <ScalarProperty Name="MusicDesciption" ColumnName="MusicDesciption" />
+                <ScalarProperty Name="MusicImageUrl" ColumnName="MusicImageUrl" />
+                <ScalarProperty Name="MusicCreateDate" ColumnName="MusicCreateDate" />
+                <ScalarProperty Name="MusicAuthor" ColumnName="MusicAuthor" />
+                <ScalarProperty Name="MusicUrl" ColumnName="MusicUrl" />
+                <ScalarProperty Name="MusicOtherName" ColumnName="MusicOtherName" />
+                <ScalarProperty Name="MusicName" ColumnName="MusicName" />
+                <ScalarProperty Name="MusicId" ColumnName="MusicId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sm_Message">
+            <EntityTypeMapping TypeName="HHL_WeddingModel.sm_Message">
+              <MappingFragment StoreEntitySet="sm_Message">
+                <ScalarProperty Name="IsGarbage" ColumnName="IsGarbage" />
+                <ScalarProperty Name="IsDraft" ColumnName="IsDraft" />
+                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+                <ScalarProperty Name="NextmsgId" ColumnName="NextmsgId" />
+                <ScalarProperty Name="PreMsgId" ColumnName="PreMsgId" />
+                <ScalarProperty Name="SendType" ColumnName="SendType" />
+                <ScalarProperty Name="SendDateTime" ColumnName="SendDateTime" />
+                <ScalarProperty Name="ToEmployee" ColumnName="ToEmployee" />
+                <ScalarProperty Name="FromEmployee" ColumnName="FromEmployee" />
+                <ScalarProperty Name="MessageContent" ColumnName="MessageContent" />
+                <ScalarProperty Name="MessageTitle" ColumnName="MessageTitle" />
+                <ScalarProperty Name="MessageId" ColumnName="MessageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_LoginLog">
+            <EntityTypeMapping TypeName="HHL_WeddingModel.sys_LoginLog">
+              <MappingFragment StoreEntitySet="sys_LoginLog">
+                <ScalarProperty Name="LoginEmployeeKey" ColumnName="LoginEmployeeKey" />
+                <ScalarProperty Name="LoginInIp" ColumnName="LoginInIp" />
+                <ScalarProperty Name="LoginIpAddress" ColumnName="LoginIpAddress" />
+                <ScalarProperty Name="LoginCity" ColumnName="LoginCity" />
+                <ScalarProperty Name="LoginDate" ColumnName="LoginDate" />
+                <ScalarProperty Name="LoginEmployee" ColumnName="LoginEmployee" />
+                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FL_Customer">
+            <EntityTypeMapping TypeName="HHL_WeddingModel.FL_Customer">
+              <MappingFragment StoreEntitySet="FL_Customer">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EvalState" ColumnName="EvalState" />
+                <ScalarProperty Name="IsFinish" ColumnName="IsFinish" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="IsVip" ColumnName="IsVip" />
+                <ScalarProperty Name="CreateEmployee" ColumnName="CreateEmployee" />
+                <ScalarProperty Name="ReCommand" ColumnName="ReCommand" />
+                <ScalarProperty Name="Budget" ColumnName="Budget" />
+                <ScalarProperty Name="DeskCount" ColumnName="DeskCount" />
+                <ScalarProperty Name="Channel" ColumnName="Channel" />
+                <ScalarProperty Name="SaleType" ColumnName="SaleType" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="BanqueType" ColumnName="BanqueType" />
+                <ScalarProperty Name="Hotel" ColumnName="Hotel" />
+                <ScalarProperty Name="PartyDate" ColumnName="PartyDate" />
+                <ScalarProperty Name="ContactPhone" ColumnName="ContactPhone" />
+                <ScalarProperty Name="ContactMan" ColumnName="ContactMan" />
+                <ScalarProperty Name="OperatorPhone" ColumnName="OperatorPhone" />
+                <ScalarProperty Name="Operator" ColumnName="Operator" />
+                <ScalarProperty Name="GroomPhone" ColumnName="GroomPhone" />
+                <ScalarProperty Name="Groom" ColumnName="Groom" />
+                <ScalarProperty Name="BridePhone" ColumnName="BridePhone" />
+                <ScalarProperty Name="Bride" ColumnName="Bride" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FL_Invite">
+            <EntityTypeMapping TypeName="HHL_WeddingModel.FL_Invite">
+              <MappingFragment StoreEntitySet="FL_Invite">
+                <ScalarProperty Name="LoseDate" ColumnName="LoseDate" />
+                <ScalarProperty Name="IsLose" ColumnName="IsLose" />
+                <ScalarProperty Name="OrderEmployee" ColumnName="OrderEmployee" />
+                <ScalarProperty Name="LastFollowDate" ColumnName="LastFollowDate" />
+                <ScalarProperty Name="FollowCount" ColumnName="FollowCount" />
+                <ScalarProperty Name="NextFollowDate" ColumnName="NextFollowDate" />
+                <ScalarProperty Name="CreateEmployee" ColumnName="CreateEmployee" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ComeDate" ColumnName="ComeDate" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="InviteId" ColumnName="InviteId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FD_SaleSource">
+            <EntityTypeMapping TypeName="HHL_WeddingModel.FD_SaleSource">
+              <MappingFragment StoreEntitySet="FD_SaleSource">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="letter" ColumnName="letter" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateEmployee" ColumnName="CreateEmployee" />
+                <ScalarProperty Name="CommondBankCard" ColumnName="CommondBankCard" />
+                <ScalarProperty Name="CommondBankName" ColumnName="CommondBankName" />
+                <ScalarProperty Name="CommondPhone" ColumnName="CommondPhone" />
+                <ScalarProperty Name="CommoandName" ColumnName="CommoandName" />
+                <ScalarProperty Name="SourceAddress" ColumnName="SourceAddress" />
+                <ScalarProperty Name="IsRebate" ColumnName="IsRebate" />
+                <ScalarProperty Name="SaleTypeId" ColumnName="SaleTypeId" />
+                <ScalarProperty Name="SourceName" ColumnName="SourceName" />
+                <ScalarProperty Name="SourceId" ColumnName="SourceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FD_SaleType">
+            <EntityTypeMapping TypeName="HHL_WeddingModel.FD_SaleType">
+              <MappingFragment StoreEntitySet="FD_SaleType">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateEmployee" ColumnName="CreateEmployee" />
+                <ScalarProperty Name="SaleTypeName" ColumnName="SaleTypeName" />
+                <ScalarProperty Name="SaleTypeID" ColumnName="SaleTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FL_InviteDetails">
+            <EntityTypeMapping TypeName="HHL_WeddingModel.FL_InviteDetails">
+              <MappingFragment StoreEntitySet="FL_InviteDetails">
+                <ScalarProperty Name="NextFollowDate" ColumnName="NextFollowDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="InviteContent" ColumnName="InviteContent" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="InviteState" ColumnName="InviteState" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="InviteId" ColumnName="InviteId" />
+                <ScalarProperty Name="DetailsId" ColumnName="DetailsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FD_Hotel">
+            <EntityTypeMapping TypeName="HHL_WeddingModel.FD_Hotel">
+              <MappingFragment StoreEntitySet="FD_Hotel">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Letter" ColumnName="Letter" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="LabelContent" ColumnName="LabelContent" />
+                <ScalarProperty Name="Label" ColumnName="Label" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DeskCount" ColumnName="DeskCount" />
+                <ScalarProperty Name="End" ColumnName="End" />
+                <ScalarProperty Name="Start" ColumnName="Start" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="HotelThemeImage" ColumnName="HotelThemeImage" />
+                <ScalarProperty Name="HotelType" ColumnName="HotelType" />
+                <ScalarProperty Name="HotelName" ColumnName="HotelName" />
+                <ScalarProperty Name="HotelID" ColumnName="HotelID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SS_Report">
+            <EntityTypeMapping TypeName="HHL_WeddingModel.SS_Report">
+              <MappingFragment StoreEntitySet="SS_Report">
+                <ScalarProperty Name="OrderSuccessDate" ColumnName="OrderSuccessDate" />
+                <ScalarProperty Name="CustomerState" ColumnName="CustomerState" />
+                <ScalarProperty Name="OrderLoseDate" ColumnName="OrderLoseDate" />
+                <ScalarProperty Name="InviteLoseDate" ColumnName="InviteLoseDate" />
+                <ScalarProperty Name="ComeDate" ColumnName="ComeDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="QuotedEmployee" ColumnName="QuotedEmployee" />
+                <ScalarProperty Name="OrderEmployee" ColumnName="OrderEmployee" />
+                <ScalarProperty Name="InviteEmployee" ColumnName="InviteEmployee" />
+                <ScalarProperty Name="CreateEmployee" ColumnName="CreateEmployee" />
+                <ScalarProperty Name="QuotedId" ColumnName="QuotedId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="ReportId" ColumnName="ReportId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FL_Order">
+            <EntityTypeMapping TypeName="HHL_WeddingModel.FL_Order">
+              <MappingFragment StoreEntitySet="FL_Order">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateEmployee" ColumnName="CreateEmployee" />
+                <ScalarProperty Name="QuotedEmployee" ColumnName="QuotedEmployee" />
+                <ScalarProperty Name="NextFollowDate" ColumnName="NextFollowDate" />
+                <ScalarProperty Name="LastFollowDate" ColumnName="LastFollowDate" />
+                <ScalarProperty Name="FollowCount" ColumnName="FollowCount" />
+                <ScalarProperty Name="OrderState" ColumnName="OrderState" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="ComeDate" ColumnName="ComeDate" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="OrderCoder" ColumnName="OrderCoder" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FL_OrderDetails">
+            <EntityTypeMapping TypeName="HHL_WeddingModel.FL_OrderDetails">
+              <MappingFragment StoreEntitySet="FL_OrderDetails">
+                <ScalarProperty Name="NextFollowDate" ColumnName="NextFollowDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="OrderContent" ColumnName="OrderContent" />
+                <ScalarProperty Name="OrderState" ColumnName="OrderState" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="OrderDetailsId" ColumnName="OrderDetailsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

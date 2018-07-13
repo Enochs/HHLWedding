@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="/Scripts/publicCommon.js"></script>
+    <script src="/Content/js/angle.js"></script>
+    <script type="text/javascript">
+        //title 提示
+        $(function () { $("[data-toggle='tooltip']").tooltip(); });
+    </script>
+</head>
+<body>
+    <div class="panel">
+        <div class="panel-body" ng-app="MyApp" ng-controller="MyCtrl" id="MyApp">
+            <div class="widget-box">
+                <div class="widget-header">
+                    <h4 class="h-title pull-left"><i class="icon-reorder"></i><b>客户列表</b></h4>
+                    <div class="box pull-right">
+                        <div class="div_angle">
+                            <span class="span-angel">
+                                <i id="icon_angle" class="icon-angle icon-angle-up"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="form-group col-sm-3">
+                        <input type="text" class="form-control" id="txtName" name="txtName" placeholder="请输入新人姓名" />
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <input type="text" class="form-control" id="txtPhone" name="txtPhone" placeholder="请输入联系电话" />
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <a class="btn btn-info" title="搜索" data-toggle="tooltip" ng-click="Searchs('',0)"><i class="icon-search"></i>&nbsp; 搜索</a>
+                        <a class="btn btn-info" title="刷新" data-toggle="tooltip" ng-click="Reload()"> <i class="icon-refresh"></i>&nbsp; 刷新</a>
+                        <a class="btn btn-success" title="添加客户" data-toggle="tooltip" href="FL_CustomerCreate.aspx?type=add"><i class="icon-plus"></i>&nbsp; 添加客户</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget-box">
+                <table class="table table-bordered table-hover table-list">
+                    <thead>
+                        <tr class="th_title">
+                            <th>姓名</th>
+                            <th class="th_sort" ng-click="changeSort(1,$event.target)">婚期&nbsp;<i class="icon-sort sortPartyDate" data-value="PartyDate" data-sort="sort">&nbsp;</i></th>
+                            <th>联系电话</th>
+                            <th class="th_sort" ng-click="changeSort(1,$event.target)">酒店&nbsp;<i class="icon-sort sortPartyDate" data-value="Hotel" data-sort="sort">&nbsp;</i></th>
+                            <th>渠道类型</th>
+                            <th>渠道名称</th>
+                            <th>进度状态</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="customer in list" class="th_content">
+                            <td><a class="font_gray" target="_blank" href="/AdminWorkArea/Flow/Customer/FL_CustomerDetails.aspx?CustomerId={{customer.CustomerId}}">{{customer.CustomerName}}</a></td>
+                            <td>{{customer.PartyDate.slice(6,-2) | date:'yyyy-MM-dd'}}</td>
+                            <td>{{customer.BridePhone}}</td>
+                            <td>{{customer.Hotel}}</td>
+                            <td>{{customer.SaleTypeName}}</td>
+                            <td>{{customer.SaleSourceName}}</td>
+                            <td>{{customer.StateName}}</td>
+                            <td>
+                                <a class="btn btn-success btn-xs" uib-tooltip="启用" ng-click="changeStatus(customer.CustomerId)" ng-show="customer.Status"><i class='icon-ok'></i></a>
+                                <a class="btn btn-danger btn-xs" uib-tooltip="禁用" ng-click="changeStatus(customer.CustomerId)" ng-hide="customer.Status"><i class='icon-minus-sign'></i></a>
+                            </td>
+                            <td>
+                                <a class="btn btn-primary btn-xs" uib-tooltip="修改" tooltip-placement="left" href="/AdminWorkArea/Flow/Customer/FL_CustomerModify.aspx"><i class="icon-edit"></i>&nbsp; 修改</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="form-group">
+                    <span>当前第{{pageIndex}}/{{totalPage}}页 共{{total}}条记录 每页{{pageSize}}条</span>
+                    <uib-pagination style="margin-top:5px;" id="pagination" class="pagination-sm pull-right" total-items="total" ng-model="pageIndex" ng-change="Searchs('')" boundary-links="true"
+                                    force-ellipses="false" first-text="首页" last-text="末页" items-per-page="pageSize" maxSize="5" previous-text="上一页" next-text="下一页"></uib-pagination>
+
+                </div>
+                <div class="form-group">
+                    <span>每页显示</span>
+                    <select ng-model="pageSize" ng-change="changeSort(2,'')">
+                        <option value="2">2</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                    <span>条</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+
+    //页面加载
+    $(function () {
+        var scope = angular.element($("#MyApp")).scope();
+        scope.PageLoad();
+        
+        //按下回车键 进行搜索
+        $(document).keypress(function (e) {
+            if (e.keyCode == 13) {
+                scope.PageLoad();
+            }
+        });
+    });
+    var app = angular.module('MyApp', ['ui.bootstrap', 'kendo.directives', 'angular-loading-bar']);
+    app.controller('MyCtrl', ['$scope', '$http', function ($scope, $http) {
+
+        $scope.pageIndex = 1;
+        $scope.pageSize = 2;
+
+        //加载事件
+        $scope.PageLoad = function () {
+            $scope.Searchs("");
+        }
+
+        //绑定客户/排序
+        $scope.Searchs = function (sortName) {
+
+            var name = $("#txtName").val();
+            var phone = $("#txtPhone").val();
+            var condition = { sortName: sortName, page: $scope.pageIndex, pageSize: $scope.pageSize, name: name, phone: phone };
+            $http.post('/WebService/Flow/CustomerHandler.asmx/GetAllCustomers', condition)
+            .success(function (data) {
+                $scope.list = data.d.data;
+                $scope.pageIndex = data.d.PageIndex;
+                $scope.total = data.d.total;
+                $scope.totalPage = data.d.TotalPage;
+            });
+        };
+
+        //type 1.改变图标  2.图标不变   (排序)
+        $scope.changeSort = function (type, obj, index) {
+
+            if (type == 1) {
+                var icon = $(obj).find("i");
+                var sortName = icon.data("value");
+
+                if (icon.hasClass("icon-sort")) {
+                    icon.removeClass("icon-sort").addClass("icon-sort-down");
+                    $scope.Searchs(sortName + "-desc");
+                }
+                else if (icon.hasClass("icon-sort-down")) {
+                    icon.removeClass("icon-sort-down").addClass("icon-sort-up");
+                    $scope.Searchs(sortName + "-asc");
+                }
+                else if (icon.hasClass("icon-sort-up")) {
+                    icon.removeClass("icon-sort-up").addClass("icon-sort");
+                    $scope.PageLoad();
+                }
+            }
+            else if (type == 2) {
+                $(".th_title .th_sort").each(function (index) {
+                    $scope.changeSort(3, this, index);
+                });
+            } else if (type == 3) {
+                var icon = $(obj).find("i");
+                var sortName = icon.data("value");
+                if (icon.hasClass("icon-sort")) {
+                    if (index <= 0) {
+                        $scope.PageLoad();
+                    }
+                }
+                else if (icon.hasClass("icon-sort-down")) {
+                    $scope.Searchs(sortName + "-desc");
+                }
+                else if (icon.hasClass("icon-sort-up")) {
+                    $scope.Searchs(sortName + "-asc");
+                }
+            }
+        }
+
+        //禁用/启用
+        $scope.changeStatus = function (cusId, obj) {
+            $http.post('/WebService/Flow/CustomerHandler.asmx/ModifySingleStatus', { cusId: cusId })
+             .success(function (result) {
+                 if (result.d.IsSuccess) {
+                     hhl.notify.clear();
+                     $scope.changeSort(2);
+                     hhl.notify.success(result.d.Message, "提示", { icon: 7 });
+                 } else {
+                     hhl.notify.warn(result.d.Message, "提示");
+                 }
+             })
+        }
+
+        //刷新
+        $scope.Reload = function () {
+            $("#txtName").val("");
+            $("#txtPhone").val("");
+            $scope.changeSort(2);
+        }
+    }]);
+
+
+
+
+</script>

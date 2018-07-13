@@ -1,0 +1,323 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>电话邀约管理-邀约中</title>
+    <meta charset="utf-8" />
+    <script src="/Scripts/publicCommon.js"></script>
+
+    <script type="text/javascript">
+        var height = $(".widget-content").css("height");
+        //title 提示
+        $(function () {
+            $("[data-toggle='tooltip']").tooltip();
+
+            angle.isMore = true;
+            //手机号码限制只能输入数字
+            $("input[name='txtPhone']").onlyNum();
+
+        });
+    </script>
+</head>
+<body>
+    <div class="panel">
+        <div class="panel-body" ng-app="MyApp" ng-controller="MyCtrl" id="MyApp">
+            <div class="widget-box">
+                <div class="widget-header">
+                    <h4 class="h-title pull-left"><i class="icon-reorder"></i><b>邀约管理-邀约中</b></h4>
+                    <div class="box pull-right">
+                        <div class="div_angle">
+                            <span class="span-angel">
+                                <i id="icon_angle" class="icon-angle icon-angle-up"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!--条件开始-->
+                <div class="widget-content" style="height:120px;">
+
+                    <!--条件第一行-->
+                    <div class="form-group col-sm-3">
+                        <input type="text" class="form-control" id="txtName" name="txtForm" placeholder="请输入新人姓名" />
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <input type="text" class="form-control" id="txtPhone" name="txtForm" placeholder="请输入联系电话" />
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <div class="pull-left">
+                            <input class="chosen-text form-control wicon" id="StartPdate" name="txtForm" type="text" placeholder="开始时间" value="" readonly />
+                        </div>
+                        <div class="pull-left">
+                            <span style="line-height: 30px;">&nbsp;—&nbsp;</span>
+                        </div>
+                        <div class="pull-left">
+                            <input class="chosen-text form-control wicon" id="EndPdate" name="txtForm" type="text" placeholder="结束时间" value="" readonly />
+                        </div>
+                    </div>
+
+                    <!--条件第二行-->
+
+
+                    <div class="form-groupp col-sm-3">
+                        <select class="form-control" id="sel_SaleType" name="selForm" ng-model="saleType" ng-change="LoadSourceById(saleType)">
+                            <option value="">-- 请选择渠道类型 --</option>
+                            <option ng-repeat="st in saleTypeList" value="{{st.Value}}">{{st.Text}}</option>
+                        </select>
+                    </div>
+                    <div class="form-groupp col-sm-3">
+                        <!--<select class="form-control" id="sel_SaleSource" name="selForm" ng-model="saleSource" ng-options="s.SourceName for s in saleSourceList" ng-change="Searchs('')">-->
+                        <select class="form-control" id="sel_SaleSource" name="selForm" ng-model="saleSource" ng-change="Searchs('')">
+                            <option value="">-- 请选择渠道 --</option>
+                            <option ng-repeat="s in saleSourceList" value="{{s.SourceId}}">{{s.SourceName}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <select class="form-control" id="sel_inviteEmp" name="selForm" ng-model="employee" ng-change="Searchs('')">
+                            <option value="">-- 请选择邀约人 --</option>
+                            <option ng-repeat="emp in EmployeeList" value="{{emp.EmployeeID}}">{{emp.EmployeeName}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <a class="btn btn-success" title="搜索" data-toggle="tooltip" ng-click="changeSort(2,$event.target)"><i class="icon-search"></i>&nbsp; 搜索</a>
+                        <a class="btn btn-primary" title="刷新" data-toggle="tooltip" ng-click="Reload()"> <i class="icon-refresh"></i>&nbsp; 刷新</a>
+                    </div>
+
+                </div>
+                <!--条件最终结尾-->
+            </div>
+
+            <div class="widget-box">
+                <table class="table table-bordered table-hover table-list">
+                    <thead>
+                        <tr class="th_title">
+                            <th>序号</th>
+                            <th>新人</th>
+                            <th class="th_sort" ng-click="changeSort(1,$event.target)">婚期&nbsp;<i class="icon-sort sortPartyDate" data-value="PartyDate" data-sort="sort">&nbsp;</i></th>
+                            <th>联系电话</th>
+                            <th class="th_sort" ng-click="changeSort(1,$event.target)">酒店&nbsp;<i class="icon-sort sortPartyDate" data-value="Hotel" data-sort="sort">&nbsp;</i></th>
+                            <th>进度状态</th>
+                            <th>沟通次数</th>
+                            <th>渠道类型</th>
+                            <th>渠道名称</th>
+                            <th>邀约人</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="invite in list" class="th_content">
+                            <td ng-bind="{{pageIndex-1}}*{{pageSize}}+$index+1">1</td>
+                            <td><a class="font_gray" target="_blank" href="/AdminWorkArea/Flow/Customer/FL_CustomerDetails.aspx?CustomerId={{invite.CustomerId}}">{{invite.CustomerName}}</a></td>
+                            <td>{{invite.PartyDate.slice(6,-2) | date:'yyyy-MM-dd'}}</td>
+                            <td>{{invite.ContactPhone}}</td>
+                            <td>{{invite.Hotel}}</td>
+                            <td>{{invite.StateName}}</td>
+                            <td>{{invite.FollowCount}}</td>
+                            <td>{{invite.SaleTypeName}}</td>
+                            <td>{{invite.SaleSourceName}}</td>
+                            <td>{{invite.InviteEmpName}}</td>
+                            <td>
+                                <a class="btn btn-success btn-xs" uib-tooltip="填写沟通记录" ng-model="pageIndex" ng-show="{{employeeId == invite.InviteEmployee ? true : false}}" tooltip-placement="top" href="InviteContentCreate.aspx?CustomerId={{invite.CustomerId}}&InviteId={{invite.InviteId}}&type=Modify"><i class="icon-edit"></i>&nbsp; 填写沟通记录</a>
+                                <a class="btn btn-danger btn-xs" uib-tooltip="查看沟通记录" ng-model="pageIndex" ng-hide="{{employeeId == invite.InviteEmployee ? true : false}}" tooltip-placement="top" href="InviteContentCreate.aspx?CustomerId={{invite.CustomerId}}&type=Details" target="_blank"><i class="icon-eye-open"></i>&nbsp; 查看沟通记录</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="form-group">
+                    <span>当前第{{pageIndex}}/{{totalPage}}页 共{{total}}条记录 每页{{pageSize}}条</span>
+                    <uib-pagination style="margin-top:5px;" id="pagination" class="pagination-sm pull-right" total-items="total" ng-model="pageIndex" ng-change="Searchs('')" boundary-links="true"
+                                    force-ellipses="false" first-text="首页" last-text="末页" items-per-page="pageSize" maxSize="5" previous-text="上一页" next-text="下一页"></uib-pagination>
+
+                </div>
+                <!--<div class="form-group">
+                    <span>每页显示</span>
+                    <select  ng-model="pageSize" ng-change="changeSort(2,'')">
+                        <option ng-repeat="page in pageSizeList">{{page.pagesize}}</option>
+                    </select>
+                    <span>条</span>
+                </div>-->
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
+
+
+<script type="text/javascript">
+
+    //页面加载
+    $(function () {
+
+        var scope = angular.element($("#MyApp")).scope();
+
+        scope.PageLoad();
+        scope.LoadEmployee();
+        scope.LoadSaleType();
+        scope.saleType = '';
+        scope.saleSource = '';
+
+        //按下回车键 进行搜索
+        $(document).keypress(function (e) {
+            if (e.keyCode == 13) {
+                scope.PageLoad();
+            }
+        });
+    });
+
+
+    var app = angular.module('MyApp', ['ui.bootstrap', 'kendo.directives', 'angular-loading-bar']);
+
+    app.controller('MyCtrl', ['$scope', '$http', function ($scope, $http) {
+
+        $scope.pageIndex = 1;
+        $scope.pageSize = 10;
+        $scope.sortName = 'CreateDate-desc';
+
+        //加载事件
+        $scope.PageLoad = function () {
+            $scope.Searchs($scope.sortName);
+
+            //每页显示条数
+            var pageList = [10, 15, 20, 50];
+            var pageSizeList = [];
+            for (var i = 0; i < pageList.length; i++) {
+                pageSizeList.push({ pagesize: pageList[i] });
+            }
+            $scope.pageSizeList = pageSizeList;
+        }
+
+        //绑定客户/排序
+        $scope.Searchs = function (sortName) {
+
+            if ($scope.saleType == '') {
+                $scope.saleSource = '';
+            }
+
+            $scope.GetSearch();
+            $scope.condition = { page: $scope.pageIndex, pageSize: $scope.pageSize, sortName: $scope.sortName, searchs: $scope.searchs, inviteEmployee: $("#sel_inviteEmp").val() };
+            $http.post('/WebService/Flow/InviteHandler.asmx/GetInviteCustomer', $scope.condition)
+            .success(function (data) {
+                $scope.list = data.d.data;
+                $scope.pageIndex = data.d.PageIndex;
+                $scope.total = data.d.total;
+                $scope.totalPage = data.d.TotalPage;
+                $scope.employeeId = data.d.EmpId;
+            });
+        };
+
+        //加载内部人员 下拉列表
+        $scope.LoadEmployee = function () {
+            $http.post('/WebService/EmployeeHandler.asmx/GetMyEmpKey', {})
+            .success(function (result) {
+                //var list = result.d.data;
+                $scope.EmployeeList = result.d.data;
+                //if (list != null && list.length > 0) {
+                //    $("#sel_inviteEmp").append($("<option></oiption>").val("0").text("请选择邀约人"));
+                //    for (var i = 0; i < list.length; i++) {
+                //        var item = list[i];
+                //        $("#sel_inviteEmp").append($("<option></oiption>").val(item.EmployeeID).text(item.EmployeeName));
+                //    }
+
+                //}
+            });
+        };
+
+        //加载渠道类型 下拉列表
+        $scope.LoadSaleType = function () {
+            $http.post('/WebService/SaleSourceHandler.asmx/GetSaleTypeDDL', {})
+            .success(function (result) {
+                $scope.saleTypeList = result.d.data;
+            });
+        };
+
+
+        //加载渠道名称 下拉列表
+        $scope.LoadSourceById = function (obj) {
+            var id = $(obj).selector;
+
+            if (id != undefined) {
+                $http.post('/WebService/SaleSourceHandler.asmx/GetSaleSourceByTypeID', { saleTypeId: id })
+                .success(function (result) {
+                    $scope.saleSourceList = result.d.Data;
+                });
+            }
+
+            $scope.PageLoad();
+        };
+
+
+        //type 1.改变图标  2.图标不变   (排序)
+        $scope.changeSort = function (type, obj, index) {
+
+            if (type == 1) {
+                var icon = $(obj).find("i");
+                var sortName = icon.data("value");
+
+                if (icon.hasClass("icon-sort")) {
+                    icon.removeClass("icon-sort").addClass("icon-sort-down");
+                    $scope.sortName = sortName + "-desc";
+                }
+                else if (icon.hasClass("icon-sort-down")) {
+                    icon.removeClass("icon-sort-down").addClass("icon-sort-up");
+                    $scope.sortName = sortName + "-asc";
+                }
+                else if (icon.hasClass("icon-sort-up")) {
+                    icon.removeClass("icon-sort-up").addClass("icon-sort");
+                }
+                $scope.Searchs($scope.sortName);
+            }
+            else if (type == 2) {
+                $(".th_title .th_sort").each(function (index) {
+                    $scope.changeSort(3, this, index);
+                });
+            } else if (type == 3) {
+                var icon = $(obj).find("i");
+                var sortName = icon.data("value");
+                if (icon.hasClass("icon-sort")) {
+                    if (index <= 0) {
+                        $scope.PageLoad();
+                    } else {
+                        return false;
+                    }
+                }
+                else if (icon.hasClass("icon-sort-down")) {
+                    $scope.sortName = sortName + "-desc";
+                }
+                else if (icon.hasClass("icon-sort-up")) {
+                    $scope.sortName = sortName + "-asc";
+                }
+                $scope.Searchs($scope.sortName);
+            }
+        }
+
+
+        //刷新
+        $scope.Reload = function () {
+
+            $("input[name='txtForm']").val('');
+
+            $scope.saleType = '';
+            $scope.saleSource = '';
+            $("#sel_inviteEmp").val("").select = true;
+
+            $scope.saleSourceList = null;
+            $scope.Searchs($scope.sortName);
+        }
+
+        //搜索条件
+        $scope.GetSearch = function () {
+            $scope.searchs = [];
+            $scope.searchs.push({ property: "Bride/Groom/Operator", value: $("#txtName").val(), method: "Contains" })
+            $scope.searchs.push({ property: "ContactPhone", value: $("#txtPhone").val(), method: "==" })
+            $scope.searchs.push({ property: "State", value: "2", method: "==" })
+            $scope.searchs.push({ property: "SaleType", value: $scope.saleType, method: "==" })
+            $scope.searchs.push({ property: "SaleSource", value: $scope.saleSource, method: "==" })
+            $scope.searchs.push({ property: "PartyDate", value: $("#StartPdate").val() + "," + $("#EndPdate").val(), method: "datetime" })
+        }
+
+    }]);
+
+
+
+
+</script>
