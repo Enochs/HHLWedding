@@ -107,8 +107,8 @@ F:\git\HHL_Wedding\HHLWedding\HHLWedding.ToolsLibrary\bin\Debug\en\AspNetPager.r
 F:\git\HHL_Wedding\HHLWedding\HHLWedding.ToolsLibrary\bin\Debug\zh-CHT\AspNetPager.resources.dll
 F:\git\HHL_Wedding\HHLWedding\HHLWedding.ToolsLibrary\bin\Debug\zh-Hans\EntityFramework.resources.dll
 F:\git\HHL_Wedding\HHLWedding\HHLWedding.ToolsLibrary\bin\Debug\zh-Hans\EntityFramework.SqlServer.resources.dll
-F:\git\HHL_Wedding\HHLWedding\HHLWedding.ToolsLibrary\obj\Debug\HHLWedding.ToolsLibrary.csprojAssemblyReference.cache
 F:\git\HHL_Wedding\HHLWedding\HHLWedding.ToolsLibrary\obj\Debug\HHLWedding.ToolsLibrary.csproj.CoreCompileInputs.cache
 F:\git\HHL_Wedding\HHLWedding\HHLWedding.ToolsLibrary\obj\Debug\HHLWedding.ToolsLibrary.csproj.CopyComplete
 F:\git\HHL_Wedding\HHLWedding\HHLWedding.ToolsLibrary\obj\Debug\HHLWedding.ToolsLibrary.dll
 F:\git\HHL_Wedding\HHLWedding\HHLWedding.ToolsLibrary\obj\Debug\HHLWedding.ToolsLibrary.pdb
+F:\git\HHL_Wedding\HHLWedding\HHLWedding.ToolsLibrary\obj\Debug\HHLWedding.ToolsLibrary.csprojAssemblyReference.cache

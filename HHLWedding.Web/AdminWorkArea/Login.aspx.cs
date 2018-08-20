@@ -140,9 +140,9 @@ namespace HHLWedding.Web.AdminWorkArea
             log.LoginEmployee = m_emp.EmployeeID;
             log.LoginEmployeeKey = m_emp.EmployeeID.ToString();
             log.LoginDate = DateTime.Now;
-            log.LoginCity = IpAddress.GetAddressByIp(ip, 2);       //登录城市
-            log.LoginIpAddress = ip;                //外网Ip
-            log.LoginInIp = HttpContext.Current.Request.UserHostAddress;        //内网Ip
+            log.LoginCity = ComputerInfo.Address;       //登录城市
+            log.LoginIpAddress = ComputerInfo.WIp;                //外网Ip
+            log.LoginInIp = ComputerInfo.IpAddress;        //内网Ip
 
             _logService.Add(log);
         }

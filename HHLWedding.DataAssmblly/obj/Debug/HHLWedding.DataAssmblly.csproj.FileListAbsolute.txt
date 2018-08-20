@@ -54,7 +54,6 @@ F:\git\HHL_Wedding\HHLWedding\HHLWedding.DataAssmblly\bin\Debug\EntityFramework.
 F:\git\HHL_Wedding\HHLWedding\HHLWedding.DataAssmblly\bin\Debug\EntityFramework.SqlServer.xml
 F:\git\HHL_Wedding\HHLWedding\HHLWedding.DataAssmblly\bin\Debug\zh-Hans\EntityFramework.resources.dll
 F:\git\HHL_Wedding\HHLWedding\HHLWedding.DataAssmblly\bin\Debug\zh-Hans\EntityFramework.SqlServer.resources.dll
-F:\git\HHL_Wedding\HHLWedding\HHLWedding.DataAssmblly\obj\Debug\HHLWedding.DataAssmblly.csprojAssemblyReference.cache
 F:\git\HHL_Wedding\HHLWedding\HHLWedding.DataAssmblly\obj\Debug\HHLWedding.DataAssmblly.csproj.CoreCompileInputs.cache
 F:\git\HHL_Wedding\HHLWedding\HHLWedding.DataAssmblly\obj\Debug\HHLWedding.DataAssmblly.csproj.CopyComplete
 F:\git\HHL_Wedding\HHLWedding\HHLWedding.DataAssmblly\obj\Debug\HHLWedding.DataAssmblly.dll

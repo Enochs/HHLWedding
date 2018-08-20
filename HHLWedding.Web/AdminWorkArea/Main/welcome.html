@@ -28,25 +28,23 @@
     <!--提示  扩展的js文件-->
     <script src="/Scripts/hhl.js"></script>
 
-    <script type="text/javascript" src="http://tool.keleyi.com/ip/visitoriphost/"></script>
-
-
-    <script src="http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js"></script>
+    <!--<script type="text/javascript" src="http://tool.keleyi.com/ip/visitoriphost/"></script>-->
+    <!--<script src="http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js"></script>-->
     <script type="text/javascript">
         $(function () {
-            var goverment = ["重庆", "北京", "天津", "南京"];
-            //新浪记录
-            var fix = "省";
-            var provinces = remote_ip_info["province"];
-            for (var i = 0; i < goverment.length; i++) {
-                if (provinces == goverment[i]) {
-                    fix = "市"
-                }
-            }
+            //var goverment = ["重庆", "北京", "天津", "南京"];
+            ////新浪记录
+            //var fix = "省";
+            //var provinces = remote_ip_info["province"];
+            //for (var i = 0; i < goverment.length; i++) {
+            //    if (provinces == goverment[i]) {
+            //        fix = "市"
+            //    }
+            //}
 
-            var address = remote_ip_info["country"] + ' ' + remote_ip_info["province"] + fix + ' ' + remote_ip_info["city"] + "市";//中国,江苏省,南京市
+            //var address = remote_ip_info["country"] + ' ' + remote_ip_info["province"] + fix + ' ' + remote_ip_info["city"] + "市";//中国,江苏省,南京市
 
-            $("#loginCity").text(address);
+            //$("#loginCity").text(address);
 
             var date = new Date();
 
@@ -59,6 +57,10 @@
                     $(".hostName").text(Model.hostName);
                     $(".userName").text(Model.userName);
                     $(".span_loginName").text("(" + Model.loginName + ")");
+                    $("#spanIp").text(Model.wIp);
+                    $("#loginCity").text(Model.loginAddress);
+                    $(".spanCity").text("登陆城市:" + Model.loginAddress);
+                    $("#spanSystemType").text(Model.systemType);
                 }
             });
 
@@ -110,15 +112,15 @@
             });
 
             //登录城市
-            setTimeout(function () {
-                var ip = $("#keleyivisitorip").text();
+            //setTimeout(function () {
+            //    var ip = $("#keleyivisitorip").text();
 
-                //登录信息 客户端信息
-                hhl.ajax("/WebService/BaseHandler.asmx/GetCity", '{"ip":"' + ip + '"}', function (result) {
-                    $(".spanCity").text("登陆城市:" + result.d);
-                });
+            //    //登录信息 客户端信息
+            //    hhl.ajax("/WebService/BaseHandler.asmx/GetCity", '{"ip":"' + ip + '"}', function (result) {
+            //        $(".spanCity").text("登陆城市:" + result.d);
+            //    });
 
-            }, 100)
+            //}, 100)
 
             //数据库备份
             $("#btn_backUp").click(function () {
@@ -200,7 +202,7 @@
                     </tr>
                     <tr>
                         <td>客户端IP地址</td>
-                        <td><span id="keleyivisitorip"></span></td>
+                        <td><span id="spanIp"></span></td>
                     </tr>
                     <tr>
                         <td>服务器域名</td>
@@ -220,7 +222,7 @@
                     </tr>
                     <tr>
                         <td>服务器操作系统 </td>
-                        <td>Microsoft Windows NT 5.2.3790 Service Pack 2</td>
+                        <td><span id="spanSystemType"></span></td>
                     </tr>
                     <tr>
                         <td>系统所在文件夹 </td>

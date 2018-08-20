@@ -99,6 +99,16 @@
                 //}
             });
 
+            //点击文字 选中复选框 (记住密码)
+            $("#lblOnline").click(function () {
+                var chk = $("#ChkLoginState").is(":checked");
+                if (chk) {
+                    $("#ChkLoginState").removeProp("checked");
+                } else {
+                    $("#ChkLoginState").prop("checked", "checked");
+                }
+            });
+
 
         });
 
@@ -157,7 +167,8 @@
                             <input type="checkbox" name="online" id="online" value="" />
                             使我保持登录状态
                         </label>--%>
-                        <asp:CheckBox runat="server" ID="ChkLoginState" /><label for="online">使我保持登录状态</label>
+                        <label for="online" id="lblOnline">
+                            <asp:CheckBox ClientIDMode="Static" runat="server" ID="ChkLoginState" />使我保持登录状态</label>
                     </div>
                 </div>
                 <div class="row">

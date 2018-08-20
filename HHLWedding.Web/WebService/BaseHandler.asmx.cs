@@ -53,10 +53,13 @@ namespace HHLWedding.Web.WebService
                 //string userDominName = Environment.UserDomainName;
                 //string userName = Environment.UserName;
 
-                host.hostName = Dns.GetHostName();
-                host.InIp = Context.Request.UserHostAddress;
+                host.hostName = ComputerInfo.ComputerName;
+                host.InIp = ComputerInfo.IpAddress;
                 host.loginName = LoginInfo.UserInfo.LoginName;
-                host.userName = Environment.UserName;       //登录用户名称
+                host.userName = ComputerInfo.LoginUserName;       //登录用户名称
+                host.loginAddress = ComputerInfo.Address;
+                host.wIp = ComputerInfo.WIp;
+                host.systemType = ComputerInfo.SystemType;
 
                 ajax.IsSuccess = true;
                 ajax.Data = host;
@@ -287,6 +290,8 @@ namespace HHLWedding.Web.WebService
         public string loginName { get; set; }
         public string userName { get; set; }
         public string InIp { get; set; }
-
+        public string loginAddress { get; set; }
+        public string wIp { get; set; }
+        public string systemType { get; set; }
     }
 }
