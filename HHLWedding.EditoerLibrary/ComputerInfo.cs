@@ -7,13 +7,15 @@ using System.Management;
 using System.Net;
 using System.IO;
 using Microsoft.Win32;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace HHLWedding.EditoerLibrary
 {
-    /// @author      ：qjhang
+    /// @author      ：wp
     /// @datetime    ：2018/7/24 17:29:47
     /// @desc        ：ComputerInfo  
-    /// @lastAuthor  ：qjhang
+    /// @lastAuthor  ：wp
     /// @lastDatetime：2018/7/24 17:29:47 
     public class ComputerInfo
     {
@@ -40,7 +42,7 @@ namespace HHLWedding.EditoerLibrary
             TotalPhysicalMemory = GetTotalPhysicalMemory();
             ComputerName = GetComputerName();
             WIp = GetIP()[0];
-            Address=GetIP()[1];
+            Address = GetIP()[1];
         }
         //1.获取CPU序列号代码 
 
@@ -261,28 +263,27 @@ namespace HHLWedding.EditoerLibrary
 
         ///9.获取外网IP及地理位置     
 
-        static List<string> GetIP()     //0.IP 1.地址
+        public static List<string> GetIP()     //0.IP 1.地址
         {
             List<string> tempList = new List<string>();
             string tempip = "";
             string tempAddress = "";
             try
             {
-                //获取本机外网ip的url
-                string getIpUrl = "http://www.ipip.net/ip.html";//网上获取ip地址的网站
+                //    //获取本机外网ip的url
+                //string getIpUrl = "http://www.ipip.net/ip.html";//网上获取ip地址的网站
+                string getIpUrl = "http://2018.ip138.com/ic.asp";
                 WebRequest wr = WebRequest.Create(getIpUrl);
                 Stream s = wr.GetResponse().GetResponseStream();
                 StreamReader sr = new StreamReader(s, Encoding.UTF8);
                 string all = sr.ReadToEnd(); //读取网站的数据
-                                             //解析出需要的数据
-                int start = all.IndexOf("<td>当前IP</td>");
-                int end = all.IndexOf("</span></td>");
-                tempip = all.Substring(start, end - start).Replace("<td>当前IP</td>\r\n            <td colspan=\"6\"><span style=\"margin-left: -200px;\">", "");
+
+                int start = all.IndexOf("[");
+                int end = all.IndexOf("]");
+                tempip = all.Substring(start + 1, end - start - 1);
                 tempList.Add(tempip);
 
-                int addresstart = all.LastIndexOf("<td>地理位置</td>");
-                int addersSEnd = addresstart + 121; //all.IndexOf("</span>");
-                tempAddress = all.Substring(addresstart, addersSEnd - addresstart).Replace("<td>地理位置</td>\r\n                <td colspan=\"6\" style=\"position: relative;\"><span style=\"margin-left: -200px;\">", "");
+                tempAddress = GetIPCitys(tempip);
                 tempList.Add(tempAddress);
                 sr.Close();
                 s.Close();
@@ -292,6 +293,53 @@ namespace HHLWedding.EditoerLibrary
                 throw e;
             }
             return tempList;
+        }
+
+        /// <summary>
+        /// 淘宝api
+        /// </summary>
+        /// <param name="strIP"></param>
+        /// <returns></returns>
+        public static string GetIPCitys(string strIP)
+        {
+            try
+            {
+                string Url = "http://ip.taobao.com/service/getIpInfo.php?ip=" + strIP;
+
+                WebRequest wr = WebRequest.Create(Url);
+                //WebResponse wResp = wr.GetResponse();
+                //Stream respStream = wResp.GetResponseStream();
+                Stream s = wr.GetResponse().GetResponseStream();
+                //StreamReader sr = new StreamReader(s, Encoding.UTF8);
+                StreamReader sr = new StreamReader(s, Encoding.UTF8);
+
+                string jsonText = sr.ReadToEnd();
+                sr.Close();
+                s.Close();
+
+                JObject ja = (JObject)JsonConvert.DeserializeObject(jsonText);
+                if (ja["code"].ToString() == "0")
+                {
+                    string c = ja["data"]["city"].ToString();
+                    int ci = c.IndexOf('市');
+                    if (ci != -1)
+                    {
+                        c = c.Remove(ci, 1);
+                    }
+                    return c;
+                }
+                else
+                {
+                    return "未知";
+                }
+
+            }
+            catch (Exception e)
+            {
+                return ("未知");
+                throw e;
+
+            }
         }
 
     }

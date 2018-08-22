@@ -130,3 +130,5 @@ F:\git\HHL_Wedding\HHLWedding\HHLWedding.Common\obj\Debug\HHLWedding.Common.cspr
 F:\git\HHL_Wedding\HHLWedding\HHLWedding.Common\obj\Debug\HHLWedding.Common.csproj.CopyComplete
 F:\git\HHL_Wedding\HHLWedding\HHLWedding.Common\obj\Debug\HHLWedding.Common.dll
 F:\git\HHL_Wedding\HHLWedding\HHLWedding.Common\obj\Debug\HHLWedding.Common.pdb
+F:\git\HHL_Wedding\HHLWedding\HHLWedding.Common\bin\Debug\Newtonsoft.Json.dll
+F:\git\HHL_Wedding\HHLWedding\HHLWedding.Common\bin\Debug\Newtonsoft.Json.xml

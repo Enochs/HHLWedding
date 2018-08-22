@@ -115,3 +115,4 @@ F:\git\HHL_Wedding\HHLWedding\HHLWedding.EditoerLibrary\obj\Debug\HHLWedding.Edi
 F:\git\HHL_Wedding\HHLWedding\HHLWedding.EditoerLibrary\obj\Debug\HHLWedding.EditoerLibrary.csproj.CopyComplete
 F:\git\HHL_Wedding\HHLWedding\HHLWedding.EditoerLibrary\obj\Debug\HHLWedding.EditoerLibrary.dll
 F:\git\HHL_Wedding\HHLWedding\HHLWedding.EditoerLibrary\obj\Debug\HHLWedding.EditoerLibrary.pdb
+F:\git\HHL_Wedding\HHLWedding\HHLWedding.EditoerLibrary\bin\Debug\Newtonsoft.Json.dll

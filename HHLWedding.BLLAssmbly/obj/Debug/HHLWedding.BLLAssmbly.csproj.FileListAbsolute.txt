@@ -162,3 +162,5 @@ F:\git\HHL_Wedding\HHLWedding\HHLWedding.BLLAssmbly\obj\Debug\HHLWedding.BLLAssm
 F:\git\HHL_Wedding\HHLWedding\HHLWedding.BLLAssmbly\obj\Debug\HHLWedding.BLLAssmbly.csproj.CopyComplete
 F:\git\HHL_Wedding\HHLWedding\HHLWedding.BLLAssmbly\obj\Debug\HHLWedding.BLLAssmbly.dll
 F:\git\HHL_Wedding\HHLWedding\HHLWedding.BLLAssmbly\obj\Debug\HHLWedding.BLLAssmbly.pdb
+F:\git\HHL_Wedding\HHLWedding\HHLWedding.BLLAssmbly\bin\Debug\Newtonsoft.Json.dll
+F:\git\HHL_Wedding\HHLWedding\HHLWedding.BLLAssmbly\bin\Debug\Newtonsoft.Json.xml
