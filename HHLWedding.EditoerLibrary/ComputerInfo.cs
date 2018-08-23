@@ -266,27 +266,38 @@ namespace HHLWedding.EditoerLibrary
         public static List<string> GetIP()     //0.IP 1.地址
         {
             List<string> tempList = new List<string>();
-            string tempip = "";
+            string tempIp = "";
             string tempAddress = "";
             try
             {
                 //    //获取本机外网ip的url
                 //string getIpUrl = "http://www.ipip.net/ip.html";//网上获取ip地址的网站
-                string getIpUrl = "http://2018.ip138.com/ic.asp";
+                string getIpUrl = "http://apis.map.qq.com/ws/location/v1/ip?key=MAVBZ-RQXRF-D5YJV-J46RA-VTMFS-LFFF5";
                 WebRequest wr = WebRequest.Create(getIpUrl);
                 Stream s = wr.GetResponse().GetResponseStream();
                 StreamReader sr = new StreamReader(s, Encoding.UTF8);
-                string all = sr.ReadToEnd(); //读取网站的数据
+                string jsonText = sr.ReadToEnd(); //读取网站的数据
 
-                int start = all.IndexOf("[");
-                int end = all.IndexOf("]");
-                tempip = all.Substring(start + 1, end - start - 1);
-                tempList.Add(tempip);
-
-                tempAddress = GetIPCitys(tempip);
-                tempList.Add(tempAddress);
                 sr.Close();
                 s.Close();
+
+                JObject ja = (JObject)JsonConvert.DeserializeObject(jsonText);
+                if (ja["status"].ToString() == "0")
+                {
+                    tempIp = ja["result"]["ip"].ToString();
+                    var nation = ja["result"]["ad_info"]["nation"].ToString();
+                    var province = ja["result"]["ad_info"]["province"].ToString();
+                    var city = ja["result"]["ad_info"]["city"].ToString();
+                    var distinct = ja["result"]["ad_info"]["district"].ToString();
+
+                    tempAddress = nation + " " + province + " " + city + " " + distinct;
+
+                    tempList.Add(tempIp);
+                    tempList.Add(tempAddress);
+
+                }
+                
+
             }
             catch (Exception e)
             {

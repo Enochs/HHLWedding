@@ -21,7 +21,7 @@
 
         //上传图片
         function UploadImage(type, name, id) {
-            hhl.dialog.openUpdate(["/AdminWorkArea/CommonForm/ImageUpload.aspx?type=" + type + "&name=" + name + "&id=" + id], "修改酒店信息", {
+            hhl.dialog.openUpdate(["/AdminWorkArea/CommonForm/FileUpload.aspx?type=" + type + "&name=" + name + "&id=" + id], "修改酒店信息", {
                 btn: ["关闭页面"],
                 yes: function (index) {
                     layer.close(index);

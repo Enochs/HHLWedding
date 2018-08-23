@@ -61,7 +61,6 @@ namespace HHLWedding.Web.AdminWorkArea
         /// </summary>   
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-
             string loginName = Request["loginName"].ToString().Trim();
             string passwords = Request["passWord"].ToString().Trim();
             bool IsCheck = ChkLoginState.Checked;

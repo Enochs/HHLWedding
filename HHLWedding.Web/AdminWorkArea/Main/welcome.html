@@ -28,23 +28,20 @@
     <!--提示  扩展的js文件-->
     <script src="/Scripts/hhl.js"></script>
 
-    <!--<script type="text/javascript" src="http://tool.keleyi.com/ip/visitoriphost/"></script>-->
-    <!--<script src="http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js"></script>-->
     <script type="text/javascript">
+
+        function timetrans(date) {
+            var date = new Date(date);//如果date为13位不需要乘1000
+            var Y = date.getFullYear() + '-';
+            var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+            var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
+            var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+            var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+            var s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
+            return Y + M + D + h + m + s;
+        }
+
         $(function () {
-            //var goverment = ["重庆", "北京", "天津", "南京"];
-            ////新浪记录
-            //var fix = "省";
-            //var provinces = remote_ip_info["province"];
-            //for (var i = 0; i < goverment.length; i++) {
-            //    if (provinces == goverment[i]) {
-            //        fix = "市"
-            //    }
-            //}
-
-            //var address = remote_ip_info["country"] + ' ' + remote_ip_info["province"] + fix + ' ' + remote_ip_info["city"] + "市";//中国,江苏省,南京市
-
-            //$("#loginCity").text(address);
 
             var date = new Date();
 
@@ -61,8 +58,25 @@
                     $("#loginCity").text(Model.loginAddress);
                     $(".spanCity").text("登陆城市:" + Model.loginAddress);
                     $("#spanSystemType").text(Model.systemType);
+                    $("#spanPlatSystem").text(Model.operatingSystem);   //操作系统
+                    $("#spanMemory").text(Model.totalMemory);       //虚拟内存/内存量
+                    $("#spanDisk").text(Model.diskID);
+                    $("#spanMacAddress").text(Model.macAccress);
+                    $("#spanBrowser").text(Model.browser);
+
+                    $("#spanIISVersion").text(Model.iisVersion);
+                    $("#spanFile").text(Model.filePath);
+                    $("#spanSystemFile").text(Model.systemFilePath);
+                    $("#spanPort").text(Model.systemPort);
+                    $("#spanSession").text(Model.session);
+                    $("#spanSessionCount").text(Model.sessionCount);
+                    $("#spanNetVersion").text(Model.netVersion);
                 }
-            });
+            }, 0, false);
+
+            setInterval(function () {
+                $("#spanDate").text(timetrans(new Date().getTime()))
+            }, 1000);
 
             //判断时候(早 中 晚)
             var hours = date.getHours();
@@ -210,15 +224,15 @@
                     </tr>
                     <tr>
                         <td>服务器端口 </td>
-                        <td>80</td>
+                        <td><span id="spanPort">80</span></td>
                     </tr>
                     <tr>
                         <td>服务器IIS版本 </td>
-                        <td>Microsoft-IIS/6.0</td>
+                        <td><span id="spanIISVersion">Microsoft-IIS/6.0</span></td>
                     </tr>
                     <tr>
                         <td>本文件所在文件夹 </td>
-                        <td>D:\WebSite\HanXiPuTai.com\XinYiCMS.Web\</td>
+                        <td><span id="spanFile">D:\WebSite\HanXiPuTai.com\XinYiCMS.Web\</span></td>
                     </tr>
                     <tr>
                         <td>服务器操作系统 </td>
@@ -226,63 +240,43 @@
                     </tr>
                     <tr>
                         <td>系统所在文件夹 </td>
-                        <td>C:\WINDOWS\system32</td>
+                        <td><span id="spanSystemFile">C:\WINDOWS\system32</span></td>
                     </tr>
                     <tr>
-                        <td>服务器脚本超时时间 </td>
-                        <td>30000秒</td>
-                    </tr>
-                    <tr>
-                        <td>服务器的语言种类 </td>
-                        <td>Chinese (People's Republic of China)</td>
+                        <td>硬盘ID </td>
+                        <td><span id="spanDisk"></span></td>
                     </tr>
                     <tr>
                         <td>.NET Framework 版本 </td>
-                        <td>2.050727.3655</td>
+                        <td><span id="spanNetVersion">2.050727.3655</span></td>
                     </tr>
                     <tr>
                         <td>服务器当前时间 </td>
-                        <td>2014-6-14 12:06:23</td>
+                        <td><span id="spanDate"></span></td>
                     </tr>
                     <tr>
-                        <td>服务器IE版本 </td>
-                        <td>6.0000</td>
+                        <td>操作系统 </td>
+                        <td><span id="spanPlatSystem"></span></td>
                     </tr>
                     <tr>
-                        <td>服务器上次启动到现在已运行 </td>
-                        <td>7210分钟</td>
-                    </tr>
-                    <tr>
-                        <td>逻辑驱动器 </td>
-                        <td>C:\D:\</td>
-                    </tr>
-                    <tr>
-                        <td>CPU 总数 </td>
-                        <td>4</td>
-                    </tr>
-                    <tr>
-                        <td>CPU 类型 </td>
-                        <td>x86 Family 6 Model 42 Stepping 1, GenuineIntel</td>
+                        <td>mac序列号 </td>
+                        <td><span id="spanMacAddress"></span></td>
                     </tr>
                     <tr>
                         <td>虚拟内存 </td>
-                        <td>52480M</td>
+                        <td><span id="spanMemory"></span></td>
                     </tr>
                     <tr>
-                        <td>当前程序占用内存 </td>
-                        <td>3.29M</td>
-                    </tr>
-                    <tr>
-                        <td>Asp.net所占内存 </td>
-                        <td>51.46M</td>
+                        <td>浏览器 </td>
+                        <td><span id="spanBrowser"></span></td>
                     </tr>
                     <tr>
                         <td>当前Session数量 </td>
-                        <td>8</td>
+                        <td><span id="spanSessionCount"></span></td>
                     </tr>
                     <tr>
                         <td>当前SessionID </td>
-                        <td>gznhpwmp34004345jz2q3l45</td>
+                        <td><span id="spanSession">gznhpwmp34004345jz2q3l45</span></td>
                     </tr>
                     <tr>
                         <td>当前系统用户名 </td>

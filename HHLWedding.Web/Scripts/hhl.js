@@ -304,7 +304,7 @@ var hhl = hhl || {};
 
 
     //form表单 提交验证
-    hhl.ajax = function (url, data, callback, stringType, type, datatype, contentType) {
+    hhl.ajax = function (url, data, callback, stringType, async, type, datatype, contentType) {
         if (!type) {
             type = "post";
         }
@@ -318,9 +318,12 @@ var hhl = hhl || {};
         if (stringType == 1) {
             data = JSON.stringify(data);
         }
+        if (!async) {
+            async = true;
+        }
 
         $.ajax({
-            async: true,
+            async: async,
             cahce: false,
             type: type,
             contentType: contentType,

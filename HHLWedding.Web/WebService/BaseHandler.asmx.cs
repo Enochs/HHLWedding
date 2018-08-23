@@ -60,6 +60,19 @@ namespace HHLWedding.Web.WebService
                 host.loginAddress = ComputerInfo.Address;
                 host.wIp = ComputerInfo.WIp;
                 host.systemType = ComputerInfo.SystemType;
+                host.operatingSystem = Environment.OSVersion.ToString();
+                host.totalMemory = ComputerInfo.TotalPhysicalMemory;        //内存量
+                host.diskID = ComputerInfo.DiskID;
+                host.macAccress = ComputerInfo.MacAddress;
+                host.browser = Context.Request.Browser.Browser.ToString();
+                host.iisVersion = Context.Request.ServerVariables["SERVER_SOFTWARE"].ToString();
+                host.filePath = Context.Request.PhysicalPath;
+                host.systemFilePath = Context.Request.PhysicalApplicationPath;
+                host.systemPort = Context.Request.ServerVariables["SERVER_PORT"].ToString();
+                host.session = Session.SessionID;
+                host.sessionCount = Session.Count.ToString();
+                host.netVersion = Environment.Version.ToString();
+
 
                 ajax.IsSuccess = true;
                 ajax.Data = host;
@@ -286,12 +299,81 @@ namespace HHLWedding.Web.WebService
 
     public class UserHost
     {
+        /// <summary>
+        /// 电脑名称
+        /// </summary>
         public string hostName { get; set; }
+        /// <summary>
+        /// 登录名
+        /// </summary>
         public string loginName { get; set; }
+        /// <summary>
+        /// 电脑用户名
+        /// </summary>
         public string userName { get; set; }
+        /// <summary>
+        /// 内网Ip
+        /// </summary>
         public string InIp { get; set; }
+        /// <summary>
+        /// 登录地点
+        /// </summary>
         public string loginAddress { get; set; }
+        /// <summary>
+        /// 外网IP
+        /// </summary>
         public string wIp { get; set; }
+        /// <summary>
+        /// 系统操作类型
+        /// </summary>
         public string systemType { get; set; }
+        /// <summary>
+        /// IIS版本号
+        /// </summary>
+        public string iisVersion { get; set; }
+        /// <summary>
+        /// 操作系统
+        /// </summary>
+        public string operatingSystem { get; set; }
+        /// <summary>
+        /// 浏览器
+        /// </summary>
+        public string browser { get; set; }
+        /// <summary>
+        /// 内存量
+        /// </summary>
+        public string totalMemory { get; set; }
+        /// <summary>
+        /// 硬盘ID
+        /// </summary>
+        public string diskID { get; set; }
+        /// <summary>
+        /// macAddress
+        /// </summary>
+        public string macAccress { get; set; }
+        /// <summary>
+        /// 文件路径
+        /// </summary>
+        public string filePath { get; set; }
+        /// <summary>
+        /// 系统文件路径
+        /// </summary>
+        public string systemFilePath { get; set; }
+        /// <summary>
+        /// 服务器端口号
+        /// </summary>
+        public string systemPort { get; set; }
+        /// <summary>
+        /// session名称
+        /// </summary>
+        public string session { get; set; }
+        /// <summary>
+        /// session数量
+        /// </summary>
+        public string sessionCount { get; set; }
+        /// <summary>
+        /// .net版本
+        /// </summary>
+        public string netVersion { get; set; }
     }
 }
