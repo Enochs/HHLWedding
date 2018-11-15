@@ -142,7 +142,7 @@
         var url = '<%=Request.FilePath %>';
         //console.log(url);
         if (!(url.includes("Main/Index.aspx"))) {
-            debugger
+
             var data = JSON.stringify({ url: url });
             hhl.ajax("/WebService/ChannelHandler.asmx/GetChannelByUrl", data, function (result) {
                 if (result.d.data != null) {

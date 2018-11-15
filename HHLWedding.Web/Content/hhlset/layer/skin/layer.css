@@ -439,6 +439,7 @@ html #layui_layer_skinlayercss {
     /* 最大化按钮 */
     .layui-layer-setwin .layui-layer-max {
         background-position: -32px -40px;
+        display:none;
     }
 
         .layui-layer-setwin .layui-layer-max:hover {
@@ -448,6 +449,7 @@ html #layui_layer_skinlayercss {
     /* 还原按钮 */
     .layui-layer-setwin .layui-layer-maxmin {
         background-position: -65px -40px;
+        display: none;
     }
 
         .layui-layer-setwin .layui-layer-maxmin:hover {
@@ -512,7 +514,7 @@ html #layui_layer_skinlayercss {
         }
 
     .layui-layer-btn .layui-layer-btn1 {
-        background: #A6BBCE;
+        /*background: #A6BBCE;*/
     }
 
 .layui-layer-dialog {

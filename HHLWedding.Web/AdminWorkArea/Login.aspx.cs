@@ -92,7 +92,7 @@ namespace HHLWedding.Web.AdminWorkArea
             FormsAuthentication.RedirectFromLoginPage(m_emp.EmployeeID.ToString(), false);
 
             //写入登录日志
-            LoginLog(m_emp);
+            //LoginLog(m_emp);
 
             //保存Session
             UserEmployee user = new UserEmployee();
@@ -110,8 +110,8 @@ namespace HHLWedding.Web.AdminWorkArea
             cookie.Expires = System.DateTime.Now.AddDays(7);
             HttpContext.Current.Response.Cookies.Add(cookie);
 
-            WebService.Login login = new WebService.Login();
-            login.SaveLoginCookie(loginName, passwords, IsCheck);
+            //WebService.Login login = new WebService.Login();
+            //login.SaveLoginCookie(loginName, passwords, IsCheck);
         }
         #endregion
 

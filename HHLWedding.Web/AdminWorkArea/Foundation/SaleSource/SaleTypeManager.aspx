@@ -30,6 +30,7 @@
 
         //删除渠道类型
         function Delete(obj) {
+            debugger
             var Id = $(obj).val();
             var name = $(".li_Saletitle").find("input[name='SaleName" + Id + "']").val();
             var typeName = $(obj).html();
@@ -37,9 +38,11 @@
             hhl.message.confirm("你确定" + typeName + name + "吗?", function (result) {
                 if (result) {
                     hhl.ajax("/WebService/SaleSourceHandler.asmx/DeleteSaleType", '{"SaleTypeId":"' + Id + '"}', hhl.callbackStatus);
-                } else {
-                    hhl.notify.error(result.d.message, "提示");
                 }
+                //else {
+                //    debugger
+                //    hhl.notify.error(result.d.message, "提示");
+                //}
             });
 
             //hhl.ajax("/WebService/SaleSourceHandler.asmx/DeleteSaleType", '{"SaleTypeId":"' + Id + '"}', hhl.callbackStatus);

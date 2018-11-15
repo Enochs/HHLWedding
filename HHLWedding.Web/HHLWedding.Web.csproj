@@ -331,6 +331,7 @@
     <Content Include="Content\hhlset\imageGrid\images-grid.js" />
     <Content Include="Content\hhlset\imageGrid\img\imgs-grid-icons.png" />
     <Content Include="Content\hhlset\imageGrid\jquery.min.js" />
+    <Content Include="Content\hhlset\layer\skin\default\layer.css" />
     <Content Include="Content\hhlset\My97DatePicker\skin\blue\bg.jpg" />
     <Content Include="Content\hhlset\My97DatePicker\skin\blue\btnbg.jpg" />
     <Content Include="Content\hhlset\My97DatePicker\skin\blue\datepicker.css" />
