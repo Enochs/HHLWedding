@@ -119,8 +119,7 @@
                                 <asp:Button runat="server" ID="btnConfirm" Text="查询" ClientIDMode="Static" CssClass="btn btn-primary" OnClick="btnConfirm_Click" Style="display: none" />
                                 <button type="button" class="btn btn-info" title="搜索" data-toggle="tooltip" id="_btnSearch" runat="server" onserverclick="btnSearch_Click"><i class="icon-search"></i>&nbsp; 搜索</button>
                                 <button type="button" class="btn btn-info" title="刷新" data-toggle="tooltip" id="_btnRefresh" runat="server" onclick="window.location.reload()"><i class="icon-refresh"></i>&nbsp; 刷新</button>
-                            </div>
-                            <div class="form-group col-sm-6">
+                
                                 <a class="btn btn-success" title="添加菜单" data-toggle="tooltip" onclick="OpenCreate()"><i class="icon-plus"></i>&nbsp; 添加菜单</a>
                                 <a class="btn btn-danger" title="禁用" data-toggle="tooltip" onclick="SetPartStatus(2)"><i class="icon-off">&nbsp; 禁用</i></a>
                                 <a class="btn btn-success" title="启用" data-toggle="tooltip" onclick="SetPartStatus(1)"><i class="icon-ok">&nbsp; 启用</i></a>
