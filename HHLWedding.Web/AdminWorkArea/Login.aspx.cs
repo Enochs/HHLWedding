@@ -110,8 +110,8 @@ namespace HHLWedding.Web.AdminWorkArea
             cookie.Expires = System.DateTime.Now.AddDays(7);
             HttpContext.Current.Response.Cookies.Add(cookie);
 
-            //WebService.Login login = new WebService.Login();
-            //login.SaveLoginCookie(loginName, passwords, IsCheck);
+            WebService.Login login = new WebService.Login();
+            login.SaveLoginCookie(loginName, passwords, IsCheck);
         }
         #endregion
 

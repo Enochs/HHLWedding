@@ -271,7 +271,7 @@ namespace HHLWedding.EditoerLibrary
             try
             {
                 //    //获取本机外网ip的url
-                //string getIpUrl = "http://www.ipip.net/ip.html";//网上获取ip地址的网站
+                //string getIpUrl = "https://labs.ipip.net/location/ip?ip=183.230.176.174";//网上获取ip地址的网站
                 string getIpUrl = "http://apis.map.qq.com/ws/location/v1/ip?key=MAVBZ-RQXRF-D5YJV-J46RA-VTMFS-LFFF5";
                 WebRequest wr = WebRequest.Create(getIpUrl);
                 Stream s = wr.GetResponse().GetResponseStream();
@@ -280,6 +280,43 @@ namespace HHLWedding.EditoerLibrary
 
                 sr.Close();
                 s.Close();
+
+                #region 详细地址  ipip获取  需先获取得IP地址
+
+                //var index0 = jsonText.IndexOf("<table");
+                //var index1 = jsonText.IndexOf("</table>");
+                //string addressInfo = jsonText.Substring(index0, index1 - index0);
+                ////国 0
+                //int s_td0 = addressInfo.IndexOf("<td>") + 4;
+                //int length0 = addressInfo.IndexOf("</td>") - s_td0;
+                //var nation = addressInfo.Substring(s_td0, length0);
+
+                ////省 1
+                //var provinceInfo = addressInfo.Substring(addressInfo.IndexOf("</td>") + 5);
+                //int s_td1 = provinceInfo.IndexOf("<td>") + 4;
+                //int length1 = provinceInfo.IndexOf("</td>") - s_td1;
+                //var province = provinceInfo.Substring(s_td1, length1);
+
+                ////市 2
+                //var cityInfo = provinceInfo.Substring(provinceInfo.IndexOf("</td>") + 5);
+                //int s_td2 = cityInfo.IndexOf("<td>") + 4;
+                //int length2 = cityInfo.IndexOf("</td>") - s_td2;
+                //var city = cityInfo.Substring(s_td2, length2);
+
+                ////区 3
+                //var disctinctInfo = cityInfo.Substring(cityInfo.IndexOf("</td>") + 5);
+                //int s_td3 = disctinctInfo.IndexOf("<td>") + 4;
+                //int length3 = disctinctInfo.IndexOf("</td>") - s_td3;
+                //var disctinct = disctinctInfo.Substring(s_td3, length3);
+
+                ////详细地址 4
+                //int s_td4 = addressInfo.LastIndexOf("<td>") + 4;
+                //int length4 = addressInfo.LastIndexOf("</td>") - s_td4;
+                //var address = addressInfo.Substring(s_td4, length4);
+
+                #endregion
+
+
 
                 JObject ja = (JObject)JsonConvert.DeserializeObject(jsonText);
                 if (ja["status"].ToString() == "0")
@@ -296,7 +333,7 @@ namespace HHLWedding.EditoerLibrary
                     tempList.Add(tempAddress);
 
                 }
-                
+
 
             }
             catch (Exception e)
